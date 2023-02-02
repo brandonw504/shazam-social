@@ -8,13 +8,4 @@ target 'shazam-social' do
   # Pods for shoppr
   pod 'RealmSwift', '~>10'
 
-  target 'shazam-socialTests' do
-    inherit! :search_paths
-    # Pods for testing
-  end
-
-  target 'shazam-socialUITests' do
-    # Pods for testing
-  end
-
 end
