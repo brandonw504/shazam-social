@@ -13,6 +13,16 @@ struct LoginView: View {
     @State private var isLoggingIn = false
     @State private var showingAlert = false
     
+    func logIn() {
+        isLoggingIn = true
+        if let app = app {
+            app.login(credentials: .anonymous) { result in
+                isLoggingIn = false
+                showingHome = true
+            }
+        }
+    }
+    
     var body: some View {
         NavigationStack {
             VStack {
@@ -27,19 +37,7 @@ struct LoginView: View {
                     ProgressView()
                 }
                 
-                Button(action: {
-                    if name == "" {
-                        showingAlert = true
-                    } else {
-                        isLoggingIn = true
-                        if let app = app {
-                            app.login(credentials: .anonymous) { result in
-                                isLoggingIn = false
-                                showingHome = true
-                            }
-                        }
-                    }
-                }) {
+                Button(action: { name == "" ? showingAlert = true : logIn() }) {
                     Text("Login").padding(.horizontal)
                     Image(systemName: "arrow.right.square")
                 }

@@ -9,26 +9,34 @@ import SwiftUI
 import RealmSwift
 
 struct NewPostView: View {
-    @StateObject private var viewModel = ContentViewModel()
     @Binding var name: String
+    var title: String?
+    var artist: String?
+    var albumArtURL: URL?
     
-    @State private var songTitle = ""
-    @State private var songArtist = ""
-    @State private var albumArtURL = ""
+    @State private var caption = ""
+    @State private var showingAlert = false
+    @State private var showingHome = false
     
     @ObservedResults(Post.self, sortDescriptor: SortDescriptor(keyPath: "createdAt", ascending: true)) var posts
         
     func addPost() -> Void {
-        let post = Post(name: self.name, songTitle: self.songTitle, songArtist: self.songArtist, albumArtURL: self.albumArtURL)
+        guard let songTitle = self.title else {
+            return
+        }
+        guard let songArtist = self.artist else {
+            return
+        }
+        guard let albumArtURL = self.albumArtURL else {
+            return
+        }
+        let post = Post(name: self.name, title: songTitle, artist: songArtist, albumArtURL: albumArtURL.absoluteString, caption: self.caption)
         $posts.append(post)
-        self.songTitle = ""
-        self.songArtist = ""
-        self.albumArtURL = ""
     }
     
     var body: some View {
         ZStack {
-            AsyncImage(url: viewModel.shazamMedia.albumArtURL) { image in
+            AsyncImage(url: albumArtURL) { image in
                     image
                     .resizable()
                     .scaledToFill()
@@ -40,7 +48,7 @@ struct NewPostView: View {
             }
             VStack(alignment: .center) {
                 Spacer()
-                AsyncImage(url: viewModel.shazamMedia.albumArtURL) { image in
+                AsyncImage(url: albumArtURL) { image in
                         image
                         .resizable()
                         .frame(width: 300, height: 300)
@@ -54,23 +62,40 @@ struct NewPostView: View {
                         .redacted(reason: .privacy)
                 }
                 VStack(alignment: .center) {
-                    Text(viewModel.shazamMedia.title ?? "Title")
+                    Text(title ?? "Title")
                         .font(.title)
                         .fontWeight(.semibold)
                         .multilineTextAlignment(.center)
-                    Text(viewModel.shazamMedia.artistName ?? "Artist Name")
+                    Text(artist ?? "Artist Name")
                         .font(.title2)
                         .fontWeight(.medium)
                         .multilineTextAlignment(.center)
                 }.padding()
                 Spacer()
-                Button(action: {viewModel.startOrEndListening()}) {
-                    Text(viewModel.isRecording ? "Listening..." : "Start Shazaming")
-                        .frame(width: 300)
-                }.buttonStyle(.borderedProminent)
-                    .controlSize(.large)
-                    .shadow(radius: 4)
+                TextField("Caption", text: $caption)
+                    .padding(.horizontal)
+                    .textFieldStyle(RoundedBorderTextFieldStyle())
+                    .background(Color.gray)
+                Button(action: {
+                    if (caption == "") {
+                        showingAlert = true
+                    } else {
+                        DispatchQueue.main.async {
+                            addPost()
+                        }
+                        showingHome = true
+                    }
+                }) {
+                    Text("Share Post")
+                }
+                .alert(isPresented: $showingAlert) {
+                    Alert(title: Text("Error"), message: Text("Caption cannot be empty"), dismissButton: .default(Text("OK")))
+                }
+                Spacer()
             }
+        }
+        .navigationDestination(isPresented: $showingHome) {
+            ContentView(name: $name)
         }
     }
 }

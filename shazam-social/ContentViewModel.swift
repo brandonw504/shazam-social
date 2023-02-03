@@ -12,7 +12,7 @@ import AVKit
 struct ShazamMedia: Decodable {
     let title: String?
     let subtitle: String?
-    let artistName: String?
+    let artist: String?
     let albumArtURL: URL?
     let genres: [String]
 }
@@ -20,10 +20,11 @@ struct ShazamMedia: Decodable {
 class ContentViewModel: NSObject, ObservableObject {
     @Published var shazamMedia =  ShazamMedia(title: "Title...",
                                               subtitle: "Subtitle...",
-                                              artistName: "Artist Name...",
+                                              artist: "Artist Name...",
                                               albumArtURL: URL(string: "https://google.com"),
                                               genres: ["Pop"])
     @Published var isRecording = false
+    @Published var foundSong = false
     private let audioEngine = AVAudioEngine()
     private let session = SHSession()
     private let signatureGenerator = SHSignatureGenerator()
@@ -35,6 +36,8 @@ class ContentViewModel: NSObject, ObservableObject {
 
     public func startOrEndListening() {
         guard !audioEngine.isRunning else {
+            let inputNode = self.audioEngine.inputNode
+            inputNode.removeTap(onBus: 0)
             audioEngine.stop()
             DispatchQueue.main.async {
                 self.isRecording = false
@@ -72,11 +75,14 @@ extension ContentViewModel: SHSessionDelegate {
         if let firstItem = mediaItems.first {
             let _shazamMedia = ShazamMedia(title: firstItem.title,
                                            subtitle: firstItem.subtitle,
-                                           artistName: firstItem.artist,
+                                           artist: firstItem.artist,
                                            albumArtURL: firstItem.artworkURL,
                                            genres: firstItem.genres)
             DispatchQueue.main.async {
+                let inputNode = self.audioEngine.inputNode
+                inputNode.removeTap(onBus: 0)
                 self.shazamMedia = _shazamMedia
+                self.foundSong = true
             }
         }
     }

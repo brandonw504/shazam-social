@@ -9,7 +9,7 @@ import SwiftUI
 import RealmSwift
 
 struct FeedView: View {
-    @ObservedResults(Post.self, sortDescriptor: SortDescriptor(keyPath: "createdAt", ascending: true)) var posts
+    @ObservedResults(Post.self, sortDescriptor: SortDescriptor(keyPath: "createdAt", ascending: false)) var posts
     
     var body: some View {
         ZStack {
@@ -18,11 +18,7 @@ struct FeedView: View {
                     ScrollViewReader { proxy in
                         LazyVStack(alignment: .leading, spacing: 5) {
                             ForEach(posts) { post in
-                                VStack(alignment: .leading) {
-                                    Text(post.name)
-                                    Text(post.songTitle)
-                                    Text(post.songArtist)
-                                }
+                                PostCard(post: post)
                                 .id(post._id)
                                 .padding()
                             }
