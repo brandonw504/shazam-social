@@ -83,6 +83,7 @@ extension ContentViewModel: SHSessionDelegate {
                 inputNode.removeTap(onBus: 0)
                 self.shazamMedia = _shazamMedia
                 self.foundSong = true
+                self.isRecording = false
             }
         }
     }

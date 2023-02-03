@@ -12,6 +12,12 @@ struct ShazamView: View {
     @Binding var name: String
     
     @State private var showingNewPost = false
+    @State private var scale = false
+        
+    var foreverAnimation: Animation {
+        Animation.linear(duration: 2.0)
+            .repeatForever(autoreverses: false)
+    }
     
     var body: some View {
         ZStack {
@@ -32,7 +38,12 @@ struct ShazamView: View {
                         .resizable()
                         .frame(width: 300, height: 300)
                         .aspectRatio(contentMode: .fit)
-                        .cornerRadius(10)
+                        .scaleEffect(scale ? 0.95 : 1.05)
+                        .task {
+                            withAnimation(.easeInOut(duration: 1).repeatForever()) {
+                                scale.toggle()
+                            }
+                        }
                 } placeholder: {
                     ProgressView()
                 }
