@@ -1,15 +1,31 @@
 //
-//  ContentView.swift
+//  NewPostView.swift
 //  shazam-social
 //
 //  Created by Brandon Wong on 2/2/23.
 //
 
 import SwiftUI
+import RealmSwift
 
-struct ContentView: View {
+struct NewPostView: View {
     @StateObject private var viewModel = ContentViewModel()
-
+    @Binding var name: String
+    
+    @State private var songTitle = ""
+    @State private var songArtist = ""
+    @State private var albumArtURL = ""
+    
+    @ObservedResults(Post.self, sortDescriptor: SortDescriptor(keyPath: "createdAt", ascending: true)) var posts
+        
+    func addPost() -> Void {
+        let post = Post(name: self.name, songTitle: self.songTitle, songArtist: self.songArtist, albumArtURL: self.albumArtURL)
+        $posts.append(post)
+        self.songTitle = ""
+        self.songArtist = ""
+        self.albumArtURL = ""
+    }
+    
     var body: some View {
         ZStack {
             AsyncImage(url: viewModel.shazamMedia.albumArtURL) { image in
@@ -51,17 +67,10 @@ struct ContentView: View {
                 Button(action: {viewModel.startOrEndListening()}) {
                     Text(viewModel.isRecording ? "Listening..." : "Start Shazaming")
                         .frame(width: 300)
-                }.buttonStyle(.bordered)
+                }.buttonStyle(.borderedProminent)
                     .controlSize(.large)
-                    .controlProminence(.increased)
                     .shadow(radius: 4)
             }
         }
-    }
-}
-
-struct ContentView_Previews: PreviewProvider {
-    static var previews: some View {
-        ContentView()
     }
 }

@@ -18,7 +18,6 @@ struct ShazamMedia: Decodable {
 }
 
 class ContentViewModel: NSObject, ObservableObject {
-
     @Published var shazamMedia =  ShazamMedia(title: "Title...",
                                               subtitle: "Subtitle...",
                                               artistName: "Artist Name...",
@@ -67,7 +66,6 @@ class ContentViewModel: NSObject, ObservableObject {
 }
 
 extension ContentViewModel: SHSessionDelegate {
-
     func session(_ session: SHSession, didFind match: SHMatch) {
         let mediaItems = match.mediaItems
 

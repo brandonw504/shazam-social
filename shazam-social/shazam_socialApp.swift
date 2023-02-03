@@ -6,12 +6,15 @@
 //
 
 import SwiftUI
+import RealmSwift
+
+let app: RealmSwift.App? = RealmSwift.App(id: realmKey) // TODO: key in
 
 @main
-struct shazam_socialApp: App {
+struct shazam_socialApp: SwiftUI.App {
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            LoginView()
         }
     }
 }
