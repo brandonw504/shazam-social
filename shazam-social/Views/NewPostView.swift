@@ -10,6 +10,8 @@ import RealmSwift
 
 struct NewPostView: View {
     @Environment(\.presentationMode) var presentationMode
+    @StateObject var locationManager = LocationManager()
+    @StateObject var localSearchViewData = LocalSearchViewData()
     
     @Binding var popView: Bool
     @Binding var name: String
@@ -19,8 +21,9 @@ struct NewPostView: View {
     var albumArtURL: URL?
     
     @State private var caption = ""
+    @State private var location = ""
     @State private var showingAlert = false
-    @State private var showingHome = false
+    @State private var showingLocationPicker = false
     
     @ObservedResults(Post.self, sortDescriptor: SortDescriptor(keyPath: "createdAt", ascending: true)) var posts
         
@@ -35,7 +38,7 @@ struct NewPostView: View {
             return
         }
         
-        let post = Post(name: self.name, title: songTitle, artist: songArtist, albumArtURL: albumArtURL.absoluteString, caption: self.caption)
+        let post = Post(name: self.name, title: songTitle, artist: songArtist, albumArtURL: albumArtURL.absoluteString, caption: self.caption, location: location, latitude: locationManager.location?.latitude, longitude: locationManager.location?.longitude)
         $posts.append(post)
 
         let realm = try? Realm()
@@ -82,26 +85,43 @@ struct NewPostView: View {
             TextField("Caption", text: $caption)
                 .padding(.horizontal)
                 .textFieldStyle(RoundedBorderTextFieldStyle())
-            NavigationLink(destination: FeedView(name: $name)) {
+            
+            HStack {
+                Text(location).foregroundColor(.gray)
+                Spacer()
                 Button(action: {
-                    if (caption == "") {
-                        showingAlert = true
-                    } else {
-                        DispatchQueue.main.async {
-                            addPost()
-                        }
-                        popView = true
-                        presentationMode.wrappedValue.dismiss()
-                    }
+                    showingLocationPicker = true
+                    locationManager.requestLocation()
                 }) {
-                    Text("Share Post")
-                }
-                .buttonStyle(.borderedProminent)
-                .alert(isPresented: $showingAlert) {
-                    Alert(title: Text("Error"), message: Text("Caption cannot be empty"), dismissButton: .default(Text("OK")))
+                    HStack {
+                        Text("Locate me")
+                        Image(systemName: "chevron.right")
+                    }
                 }
             }
+            .padding()
+            
+            Button(action: {
+                if (caption == "") {
+                    showingAlert = true
+                } else {
+                    DispatchQueue.main.async {
+                        addPost()
+                    }
+                    popView = true
+                    presentationMode.wrappedValue.dismiss()
+                }
+            }) {
+                Text("Share Post")
+            }
+            .buttonStyle(.borderedProminent)
+            .alert(isPresented: $showingAlert) {
+                Alert(title: Text("Error"), message: Text("Caption cannot be empty"), dismissButton: .default(Text("OK")))
+            }
             Spacer()
+        }
+        .navigationDestination(isPresented: $showingLocationPicker) {
+            LocationView(location: $location)
         }
     }
 }

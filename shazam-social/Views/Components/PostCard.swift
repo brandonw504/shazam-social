@@ -6,12 +6,9 @@
 //
 
 import SwiftUI
-import RealmSwift
 
 struct PostCard: View {
     var post: Post
-    
-    @ObservedResults(Post.self, sortDescriptor: SortDescriptor(keyPath: "createdAt", ascending: true)) var posts
     
     var timeSincePost: String {
         let now = Date()
@@ -26,6 +23,7 @@ struct PostCard: View {
                     HStack {
                         Text(timeSincePost).padding(3).font(.system(size: 12)).foregroundColor(.gray)
                         Spacer()
+                        Text(post.location ?? "").padding(3).font(.system(size: 12)).foregroundColor(.gray)
                     }
                     
                     Divider()
