@@ -37,6 +37,7 @@
 		5B793BB9298E1CAE00D57757 /* LocalSearchService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalSearchService.swift; sourceTree = "<group>"; };
 		5B793BBB298E1CCD00D57757 /* LocalSearchData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalSearchData.swift; sourceTree = "<group>"; };
 		5B793BBE298E1EDD00D57757 /* LocationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationView.swift; sourceTree = "<group>"; };
+		5B793BC0298E427F00D57757 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		5B796099298C74A900947879 /* shazam-social.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "shazam-social.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		5B79609C298C74A900947879 /* shazam_socialApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = shazam_socialApp.swift; sourceTree = "<group>"; };
 		5B7960A0298C74AB00947879 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -64,6 +65,8 @@
 		5B43D328298C8A14006B56EA /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				5B7960AA298C76AC00947879 /* ShazamHelper.swift */,
+				5B793BBD298E1D4800D57757 /* Location */,
 				5B43D333298D0655006B56EA /* Components */,
 				5B43D32B298C9F7D006B56EA /* LoginView.swift */,
 				5B43D32D298CAEB4006B56EA /* FeedView.swift */,
@@ -114,12 +117,11 @@
 		5B79609B298C74A900947879 /* shazam-social */ = {
 			isa = PBXGroup;
 			children = (
+				5B793BC0298E427F00D57757 /* Info.plist */,
 				5B7960AE298C77F900947879 /* Model.swift */,
 				5B7960AC298C77BB00947879 /* AppKeys.swift */,
 				5B79609C298C74A900947879 /* shazam_socialApp.swift */,
 				5B43D328298C8A14006B56EA /* Views */,
-				5B7960AA298C76AC00947879 /* ShazamHelper.swift */,
-				5B793BBD298E1D4800D57757 /* Location */,
 				5B7960A0298C74AB00947879 /* Assets.xcassets */,
 				5B7960A2298C74AB00947879 /* Preview Content */,
 			);
@@ -411,6 +413,8 @@
 				DEVELOPMENT_TEAM = FZ4MUK93F3;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "shazam-social/Info.plist";
+				INFOPLIST_KEY_NSAppleMusicUsageDescription = "Shazam would like to play your tracks.";
 				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "Shazam would like to locate you to add location to your posts.";
 				INFOPLIST_KEY_NSMicrophoneUsageDescription = "Shazam needs to use the microphone to record audio.";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
@@ -443,6 +447,8 @@
 				DEVELOPMENT_TEAM = FZ4MUK93F3;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "shazam-social/Info.plist";
+				INFOPLIST_KEY_NSAppleMusicUsageDescription = "Shazam would like to play your tracks.";
 				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "Shazam would like to locate you to add location to your posts.";
 				INFOPLIST_KEY_NSMicrophoneUsageDescription = "Shazam needs to use the microphone to record audio.";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;

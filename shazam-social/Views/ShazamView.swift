@@ -55,7 +55,8 @@ struct ShazamView: View {
             }
         }
         .navigationDestination(isPresented: $shazamHelper.foundSong) {
-            NewPostView(popView: $popView, name: $name, title: shazamHelper.shazamMedia.title, artist: shazamHelper.shazamMedia.artist, albumArtURL: shazamHelper.shazamMedia.albumArtURL)
+            let helper = shazamHelper.shazamMedia
+            NewPostView(popView: $popView, name: $name, title: helper.title, artist: helper.artist, albumArtURL: helper.albumArtURL, songID: helper.songID)
         }
         .onAppear() {
             if (popView) {

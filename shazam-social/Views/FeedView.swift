@@ -7,13 +7,34 @@
 
 import SwiftUI
 import RealmSwift
+import MediaPlayer
 
 struct FeedView: View {
     @ObservedResults(Post.self, sortDescriptor: SortDescriptor(keyPath: "createdAt", ascending: false)) var posts
     @Environment(\.presentationMode) var presentationMode
+    @State private var musicPlayer = MPMusicPlayerController.applicationMusicPlayer
+    
     @Binding var name: String
     @State private var loggingOut = false
     @State private var showingShazam = false
+    
+    func playOrStopSong(id: String) {
+        switch musicPlayer.playbackState {
+        case .playing:
+            musicPlayer.pause()
+        case .paused:
+            musicPlayer.setQueue(with: [id])
+            musicPlayer.play()
+        case .stopped:
+            musicPlayer.setQueue(with: [id])
+            musicPlayer.play()
+        case .interrupted:
+            musicPlayer.pause()
+        default:
+            musicPlayer.setQueue(with: [id])
+            musicPlayer.play()
+        }
+    }
     
     func logOut() {
         if let app = app {
@@ -35,6 +56,9 @@ struct FeedView: View {
                 ForEach(posts) { post in
                     PostCard(post: post)
                     .id(post._id)
+                    .onTapGesture {
+                        playOrStopSong(id: post.songID)
+                    }
                     .contextMenu {
                         Button(role: .destructive) {
                             $posts.remove(post)

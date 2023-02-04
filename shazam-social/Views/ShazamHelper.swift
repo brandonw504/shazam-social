@@ -14,6 +14,7 @@ struct ShazamMedia: Decodable {
     let subtitle: String?
     let artist: String?
     let albumArtURL: URL?
+    let songID: String?
     let genres: [String]
 }
 
@@ -22,6 +23,7 @@ class ShazamHelper: NSObject, ObservableObject {
                                               subtitle: "Subtitle...",
                                               artist: "Artist Name...",
                                               albumArtURL: URL(string: "https://google.com"),
+                                              songID: "ID...",
                                               genres: ["Pop"])
     @Published var isRecording = false
     @Published var foundSong = false
@@ -77,6 +79,7 @@ extension ShazamHelper: SHSessionDelegate {
                                            subtitle: firstItem.subtitle,
                                            artist: firstItem.artist,
                                            albumArtURL: firstItem.artworkURL,
+                                           songID: firstItem.appleMusicID,
                                            genres: firstItem.genres)
             DispatchQueue.main.async {
                 let inputNode = self.audioEngine.inputNode

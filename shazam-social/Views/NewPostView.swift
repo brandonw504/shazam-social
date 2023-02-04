@@ -19,6 +19,7 @@ struct NewPostView: View {
     var title: String?
     var artist: String?
     var albumArtURL: URL?
+    var songID: String?
     
     @State private var caption = ""
     @State private var location = ""
@@ -38,7 +39,7 @@ struct NewPostView: View {
             return
         }
         
-        let post = Post(name: self.name, title: songTitle, artist: songArtist, albumArtURL: albumArtURL.absoluteString, caption: self.caption, location: location, latitude: locationManager.location?.latitude, longitude: locationManager.location?.longitude)
+        let post = Post(name: self.name, title: songTitle, artist: songArtist, albumArtURL: albumArtURL.absoluteString, songID: songID ?? "", caption: self.caption, location: location, latitude: locationManager.location?.latitude, longitude: locationManager.location?.longitude)
         $posts.append(post)
 
         let realm = try? Realm()
