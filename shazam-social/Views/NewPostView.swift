@@ -9,7 +9,11 @@ import SwiftUI
 import RealmSwift
 
 struct NewPostView: View {
+    @Environment(\.presentationMode) var presentationMode
+    
+    @Binding var popView: Bool
     @Binding var name: String
+    
     var title: String?
     var artist: String?
     var albumArtURL: URL?
@@ -34,21 +38,25 @@ struct NewPostView: View {
         let post = Post(name: self.name, title: songTitle, artist: songArtist, albumArtURL: albumArtURL.absoluteString, caption: self.caption)
         $posts.append(post)
 
-//        let realm = try! Realm()
-//        do {
-//            try realm.write {
-//                realm.add(post)
-//            }
-//        } catch let error {
-//            print("Failed to add post: \(error.localizedDescription)")
-//        }
+        let realm = try? Realm()
+        if let realm = realm {
+            do {
+                try realm.write {
+                    realm.add(post)
+                }
+            } catch let error {
+                print("Failed to add post: \(error.localizedDescription)")
+            }
+        } else {
+            print("Error: Realm did not initialize.")
+        }
     }
     
     var body: some View {
         VStack(alignment: .center) {
             Spacer()
             AsyncImage(url: albumArtURL) { image in
-                    image
+                image
                     .resizable()
                     .frame(width: 300, height: 300)
                     .aspectRatio(contentMode: .fit)
@@ -74,26 +82,26 @@ struct NewPostView: View {
             TextField("Caption", text: $caption)
                 .padding(.horizontal)
                 .textFieldStyle(RoundedBorderTextFieldStyle())
-            Button(action: {
-                if (caption == "") {
-                    showingAlert = true
-                } else {
-                    DispatchQueue.main.async {
-                        addPost()
+            NavigationLink(destination: FeedView(name: $name)) {
+                Button(action: {
+                    if (caption == "") {
+                        showingAlert = true
+                    } else {
+                        DispatchQueue.main.async {
+                            addPost()
+                        }
+                        popView = true
+                        presentationMode.wrappedValue.dismiss()
                     }
-                    showingHome = true
+                }) {
+                    Text("Share Post")
                 }
-            }) {
-                Text("Share Post")
-            }
-            .buttonStyle(.borderedProminent)
-            .alert(isPresented: $showingAlert) {
-                Alert(title: Text("Error"), message: Text("Caption cannot be empty"), dismissButton: .default(Text("OK")))
+                .buttonStyle(.borderedProminent)
+                .alert(isPresented: $showingAlert) {
+                    Alert(title: Text("Error"), message: Text("Caption cannot be empty"), dismissButton: .default(Text("OK")))
+                }
             }
             Spacer()
-        }
-        .navigationDestination(isPresented: $showingHome) {
-            ContentView(name: $name)
         }
     }
 }

@@ -49,7 +49,7 @@ struct LoginView: View {
                 .cornerRadius(8)
             }
             .navigationDestination(isPresented: $showingHome) {
-                ContentView(name: $name)
+                FeedView(name: $name)
             }
         }
     }

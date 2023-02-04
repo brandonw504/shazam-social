@@ -1,5 +1,5 @@
 //
-//  ContentViewModel.swift
+//  ShazamHelper.swift
 //  shazam-social
 //
 //  Created by Brandon Wong on 2/2/23.
@@ -17,7 +17,7 @@ struct ShazamMedia: Decodable {
     let genres: [String]
 }
 
-class ContentViewModel: NSObject, ObservableObject {
+class ShazamHelper: NSObject, ObservableObject {
     @Published var shazamMedia =  ShazamMedia(title: "Title...",
                                               subtitle: "Subtitle...",
                                               artist: "Artist Name...",
@@ -68,7 +68,7 @@ class ContentViewModel: NSObject, ObservableObject {
     }
 }
 
-extension ContentViewModel: SHSessionDelegate {
+extension ShazamHelper: SHSessionDelegate {
     func session(_ session: SHSession, didFind match: SHMatch) {
         let mediaItems = match.mediaItems
 

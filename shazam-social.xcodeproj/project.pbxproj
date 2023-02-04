@@ -12,14 +12,13 @@
 		5B43D330298CAED2006B56EA /* ShazamView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B43D32F298CAED2006B56EA /* ShazamView.swift */; };
 		5B43D332298CF2CE006B56EA /* NewPostView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B43D331298CF2CE006B56EA /* NewPostView.swift */; };
 		5B43D335298D0662006B56EA /* PostCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B43D334298D0662006B56EA /* PostCard.swift */; };
+		5B793BB2298DC89D00D57757 /* DateToString.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B793BB1298DC89D00D57757 /* DateToString.swift */; };
 		5B79609D298C74A900947879 /* shazam_socialApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B79609C298C74A900947879 /* shazam_socialApp.swift */; };
-		5B79609F298C74A900947879 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B79609E298C74A900947879 /* ContentView.swift */; };
 		5B7960A1298C74AB00947879 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5B7960A0298C74AB00947879 /* Assets.xcassets */; };
 		5B7960A4298C74AB00947879 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5B7960A3298C74AB00947879 /* Preview Assets.xcassets */; };
-		5B7960AB298C76AC00947879 /* ContentViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B7960AA298C76AC00947879 /* ContentViewModel.swift */; };
+		5B7960AB298C76AC00947879 /* ShazamHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B7960AA298C76AC00947879 /* ShazamHelper.swift */; };
 		5B7960AD298C77BB00947879 /* AppKeys.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B7960AC298C77BB00947879 /* AppKeys.swift */; };
 		5B7960AF298C77F900947879 /* Model.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B7960AE298C77F900947879 /* Model.swift */; };
-		5B7960B1298C790F00947879 /* AuthenticationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B7960B0298C790F00947879 /* AuthenticationManager.swift */; };
 		6C4D6F2F2BF0D972F3D64547 /* Pods_shazam_social.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8F2AD948D846F0A7FAE4ABCB /* Pods_shazam_social.framework */; };
 /* End PBXBuildFile section */
 
@@ -29,15 +28,14 @@
 		5B43D32F298CAED2006B56EA /* ShazamView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShazamView.swift; sourceTree = "<group>"; };
 		5B43D331298CF2CE006B56EA /* NewPostView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewPostView.swift; sourceTree = "<group>"; };
 		5B43D334298D0662006B56EA /* PostCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostCard.swift; sourceTree = "<group>"; };
+		5B793BB1298DC89D00D57757 /* DateToString.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateToString.swift; sourceTree = "<group>"; };
 		5B796099298C74A900947879 /* shazam-social.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "shazam-social.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		5B79609C298C74A900947879 /* shazam_socialApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = shazam_socialApp.swift; sourceTree = "<group>"; };
-		5B79609E298C74A900947879 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		5B7960A0298C74AB00947879 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		5B7960A3298C74AB00947879 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
-		5B7960AA298C76AC00947879 /* ContentViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentViewModel.swift; sourceTree = "<group>"; };
+		5B7960AA298C76AC00947879 /* ShazamHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShazamHelper.swift; sourceTree = "<group>"; };
 		5B7960AC298C77BB00947879 /* AppKeys.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppKeys.swift; sourceTree = "<group>"; };
 		5B7960AE298C77F900947879 /* Model.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Model.swift; sourceTree = "<group>"; };
-		5B7960B0298C790F00947879 /* AuthenticationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthenticationManager.swift; sourceTree = "<group>"; };
 		8F2AD948D846F0A7FAE4ABCB /* Pods_shazam_social.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_shazam_social.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		C0C3717F40E97D747BCED05C /* Pods-shazam-social.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-shazam-social.release.xcconfig"; path = "Target Support Files/Pods-shazam-social/Pods-shazam-social.release.xcconfig"; sourceTree = "<group>"; };
 		C848167B6200EF926991AEF7 /* Pods-shazam-social.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-shazam-social.debug.xcconfig"; path = "Target Support Files/Pods-shazam-social/Pods-shazam-social.debug.xcconfig"; sourceTree = "<group>"; };
@@ -60,7 +58,6 @@
 			children = (
 				5B43D333298D0655006B56EA /* Components */,
 				5B43D32B298C9F7D006B56EA /* LoginView.swift */,
-				5B79609E298C74A900947879 /* ContentView.swift */,
 				5B43D32D298CAEB4006B56EA /* FeedView.swift */,
 				5B43D32F298CAED2006B56EA /* ShazamView.swift */,
 				5B43D331298CF2CE006B56EA /* NewPostView.swift */,
@@ -72,6 +69,7 @@
 			isa = PBXGroup;
 			children = (
 				5B43D334298D0662006B56EA /* PostCard.swift */,
+				5B793BB1298DC89D00D57757 /* DateToString.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -101,8 +99,7 @@
 				5B7960AC298C77BB00947879 /* AppKeys.swift */,
 				5B79609C298C74A900947879 /* shazam_socialApp.swift */,
 				5B43D328298C8A14006B56EA /* Views */,
-				5B7960AA298C76AC00947879 /* ContentViewModel.swift */,
-				5B7960B0298C790F00947879 /* AuthenticationManager.swift */,
+				5B7960AA298C76AC00947879 /* ShazamHelper.swift */,
 				5B7960A0298C74AB00947879 /* Assets.xcassets */,
 				5B7960A2298C74AB00947879 /* Preview Content */,
 			);
@@ -249,15 +246,14 @@
 			buildActionMask = 2147483647;
 			files = (
 				5B43D330298CAED2006B56EA /* ShazamView.swift in Sources */,
+				5B793BB2298DC89D00D57757 /* DateToString.swift in Sources */,
 				5B43D32E298CAEB4006B56EA /* FeedView.swift in Sources */,
 				5B7960AF298C77F900947879 /* Model.swift in Sources */,
 				5B43D32C298C9F7D006B56EA /* LoginView.swift in Sources */,
 				5B43D335298D0662006B56EA /* PostCard.swift in Sources */,
-				5B79609F298C74A900947879 /* ContentView.swift in Sources */,
 				5B7960AD298C77BB00947879 /* AppKeys.swift in Sources */,
-				5B7960B1298C790F00947879 /* AuthenticationManager.swift in Sources */,
 				5B79609D298C74A900947879 /* shazam_socialApp.swift in Sources */,
-				5B7960AB298C76AC00947879 /* ContentViewModel.swift in Sources */,
+				5B7960AB298C76AC00947879 /* ShazamHelper.swift in Sources */,
 				5B43D332298CF2CE006B56EA /* NewPostView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

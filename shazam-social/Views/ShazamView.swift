@@ -8,16 +8,13 @@
 import SwiftUI
 
 struct ShazamView: View {
-    @StateObject private var viewModel = ContentViewModel()
+    @Environment(\.presentationMode) var presentationMode
+    @StateObject private var shazamHelper = ShazamHelper()
     @Binding var name: String
     
     @State private var showingNewPost = false
+    @State private var popView = false
     @State private var scale = false
-        
-    var foreverAnimation: Animation {
-        Animation.linear(duration: 2.0)
-            .repeatForever(autoreverses: false)
-    }
     
     var body: some View {
         ZStack {
@@ -48,8 +45,8 @@ struct ShazamView: View {
                     ProgressView()
                 }
                 Spacer()
-                Button(action: { viewModel.startOrEndListening() }) {
-                    Text(viewModel.isRecording ? "Listening..." : "Start Shazaming")
+                Button(action: { shazamHelper.startOrEndListening() }) {
+                    Text(shazamHelper.isRecording ? "Listening..." : "Start Shazaming")
                         .frame(width: 300)
                 }.buttonStyle(.borderedProminent)
                     .controlSize(.large)
@@ -57,8 +54,14 @@ struct ShazamView: View {
                 Spacer()
             }
         }
-        .navigationDestination(isPresented: $viewModel.foundSong) {
-            NewPostView(name: $name, title: viewModel.shazamMedia.title, artist: viewModel.shazamMedia.artist, albumArtURL: viewModel.shazamMedia.albumArtURL)
+        .navigationDestination(isPresented: $shazamHelper.foundSong) {
+            NewPostView(popView: $popView, name: $name, title: shazamHelper.shazamMedia.title, artist: shazamHelper.shazamMedia.artist, albumArtURL: shazamHelper.shazamMedia.albumArtURL)
+        }
+        .onAppear() {
+            if (popView) {
+                presentationMode.wrappedValue.dismiss()
+                popView = false
+            }
         }
     }
 }
