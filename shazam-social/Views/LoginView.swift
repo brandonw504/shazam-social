@@ -8,48 +8,78 @@
 import SwiftUI
 
 struct LoginView: View {
+    @StateObject var authManager = AuthenticationManager()
+    @State var error: Error?
+    
     @State private var name = ""
-    @State private var showingHome = false
+    @State private var showingSignUp = false
     @State private var isLoggingIn = false
     @State private var showingAlert = false
-    
-    func logIn() {
-        isLoggingIn = true
-        if let app = app {
-            app.login(credentials: .anonymous) { result in
-                isLoggingIn = false
-                showingHome = true
-            }
-        }
-    }
+    @State private var scale = false
     
     var body: some View {
         NavigationStack {
-            VStack {
-                Text("Shazam Social").font(.largeTitle)
-                TextField("Name", text: $name)
-                    .padding(.horizontal)
-                    .textFieldStyle(RoundedBorderTextFieldStyle())
-                    .disableAutocorrection(true)
-                    .autocapitalization(UITextAutocapitalizationType.none)
-                
+            VStack(alignment: .center) {
                 if isLoggingIn {
                     ProgressView()
                 }
+                if let error = error {
+                    Text("Error: \(error.localizedDescription)")
+                }
                 
-                Button(action: { name == "" ? showingAlert = true : logIn() }) {
-                    Text("Login").padding(.horizontal)
-                    Image(systemName: "arrow.right.square")
+                Group {
+                    AsyncImage(url: URL(string: "https://assets.stickpng.com/images/580b57fcd9996e24bc43c538.png")) { image in
+                        image
+                            .resizable()
+                            .frame(width: 300, height: 300)
+                            .aspectRatio(contentMode: .fit)
+                            .scaleEffect(scale ? 0.95 : 1.05)
+                            .task {
+                                withAnimation(.easeInOut(duration: 1).repeatForever()) {
+                                    scale.toggle()
+                                }
+                            }
+                    } placeholder: {
+                        ProgressView()
+                    }
+                    
+                    Text("Shazam Social").font(.largeTitle)
                 }
-                .alert(isPresented: $showingAlert) {
-                    Alert(title: Text("Error"), message: Text("Name cannot be empty"), dismissButton: .default(Text("OK")))
+                
+                Group {
+                    TextField("Email", text: $authManager.email)
+                        .textFieldStyle(RoundedBorderTextFieldStyle())
+                        .textInputAutocapitalization(.never)
+                    
+                    SecureField("Password", text: $authManager.password)
+                        .textFieldStyle(RoundedBorderTextFieldStyle())
+                        .textInputAutocapitalization(.never)
                 }
-                .padding()
+                
+                if authManager.isLoading {
+                    ProgressView()
+                }
+                
+                if let error = authManager.errorMessage {
+                    Text(error)
+                        .foregroundColor(.pink)
+                }
+                
+                Button("Log In") {
+                    isLoggingIn = true
+                    authManager.login()
+                    isLoggingIn = false
+                }
                 .buttonStyle(.borderedProminent)
-                .cornerRadius(8)
+                .disabled(!authManager.authIsEnabled)
+                
+                Button("Don't have an account? Sign up!") {
+                    showingSignUp = true
+                }
+                .disabled(authManager.isLoading)
             }
-            .navigationDestination(isPresented: $showingHome) {
-                FeedView(name: $name)
+            .navigationDestination(isPresented: $showingSignUp) {
+                SignUpView()
             }
         }
     }

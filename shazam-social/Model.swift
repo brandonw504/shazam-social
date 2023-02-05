@@ -9,8 +9,19 @@ import Foundation
 import RealmSwift
 import CoreLocation
 
-final class Post: Object, ObjectKeyIdentifiable {
+final class User: Object, ObjectKeyIdentifiable {
     @Persisted(primaryKey: true) var _id: ObjectId
+    @Persisted var name: String
+    @Persisted var posts = RealmSwift.List<Post>()
+    
+    convenience init(name: String) {
+        self.init()
+        self.name = name
+    }
+}
+
+final class Post: EmbeddedObject, ObjectKeyIdentifiable {
+    @Persisted var id: ObjectId
     @Persisted var name: String
     @Persisted var title: String
     @Persisted var artist: String

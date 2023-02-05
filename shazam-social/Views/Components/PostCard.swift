@@ -13,7 +13,7 @@ struct PostCard: View {
     var timeSincePost: String {
         let now = Date()
         let time = now.offset(from: post.createdAt ?? Date())
-        return time == "" ? "Recently" : time
+        return time == "" ? "Just now" : time
     }
     
     var body: some View {

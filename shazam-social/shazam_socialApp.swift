@@ -14,7 +14,10 @@ let app: RealmSwift.App? = RealmSwift.App(id: realmKey) // TODO: key in
 struct shazam_socialApp: SwiftUI.App {
     var body: some Scene {
         WindowGroup {
-            LoginView()
+            // Using Sync?
+            if let app = app {
+                SyncContentView(app: app)
+            }
         }
     }
 }

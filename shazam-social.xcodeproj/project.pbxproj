@@ -12,6 +12,10 @@
 		5B43D330298CAED2006B56EA /* ShazamView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B43D32F298CAED2006B56EA /* ShazamView.swift */; };
 		5B43D332298CF2CE006B56EA /* NewPostView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B43D331298CF2CE006B56EA /* NewPostView.swift */; };
 		5B43D335298D0662006B56EA /* PostCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B43D334298D0662006B56EA /* PostCard.swift */; };
+		5B5E7F59298F2E7700AA588C /* AuthenticationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B5E7F58298F2E7700AA588C /* AuthenticationManager.swift */; };
+		5B5E7F5B298F351F00AA588C /* SignUpView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B5E7F5A298F351F00AA588C /* SignUpView.swift */; };
+		5B5E7F5E298F36B900AA588C /* SyncContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B5E7F5D298F36B900AA588C /* SyncContentView.swift */; };
+		5B5E7F60298F36E300AA588C /* OpenSyncedRealmView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B5E7F5F298F36E300AA588C /* OpenSyncedRealmView.swift */; };
 		5B793BB2298DC89D00D57757 /* DateToString.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B793BB1298DC89D00D57757 /* DateToString.swift */; };
 		5B793BB8298E19F500D57757 /* LocationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B793BB7298E19F500D57757 /* LocationManager.swift */; };
 		5B793BBA298E1CAE00D57757 /* LocalSearchService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B793BB9298E1CAE00D57757 /* LocalSearchService.swift */; };
@@ -32,6 +36,10 @@
 		5B43D32F298CAED2006B56EA /* ShazamView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShazamView.swift; sourceTree = "<group>"; };
 		5B43D331298CF2CE006B56EA /* NewPostView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewPostView.swift; sourceTree = "<group>"; };
 		5B43D334298D0662006B56EA /* PostCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostCard.swift; sourceTree = "<group>"; };
+		5B5E7F58298F2E7700AA588C /* AuthenticationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthenticationManager.swift; sourceTree = "<group>"; };
+		5B5E7F5A298F351F00AA588C /* SignUpView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpView.swift; sourceTree = "<group>"; };
+		5B5E7F5D298F36B900AA588C /* SyncContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SyncContentView.swift; sourceTree = "<group>"; };
+		5B5E7F5F298F36E300AA588C /* OpenSyncedRealmView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OpenSyncedRealmView.swift; sourceTree = "<group>"; };
 		5B793BB1298DC89D00D57757 /* DateToString.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateToString.swift; sourceTree = "<group>"; };
 		5B793BB7298E19F500D57757 /* LocationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationManager.swift; sourceTree = "<group>"; };
 		5B793BB9298E1CAE00D57757 /* LocalSearchService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalSearchService.swift; sourceTree = "<group>"; };
@@ -65,14 +73,14 @@
 		5B43D328298C8A14006B56EA /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				5B7960AA298C76AC00947879 /* ShazamHelper.swift */,
-				5B793BBD298E1D4800D57757 /* Location */,
-				5B43D333298D0655006B56EA /* Components */,
+				5B5E7F5C298F35B900AA588C /* Realm */,
 				5B43D32B298C9F7D006B56EA /* LoginView.swift */,
+				5B5E7F5A298F351F00AA588C /* SignUpView.swift */,
 				5B43D32D298CAEB4006B56EA /* FeedView.swift */,
 				5B43D32F298CAED2006B56EA /* ShazamView.swift */,
 				5B43D331298CF2CE006B56EA /* NewPostView.swift */,
 				5B793BBE298E1EDD00D57757 /* LocationView.swift */,
+				5B43D333298D0655006B56EA /* Components */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -84,6 +92,25 @@
 				5B793BB1298DC89D00D57757 /* DateToString.swift */,
 			);
 			path = Components;
+			sourceTree = "<group>";
+		};
+		5B5E7F57298F2E3A00AA588C /* Helpers */ = {
+			isa = PBXGroup;
+			children = (
+				5B5E7F58298F2E7700AA588C /* AuthenticationManager.swift */,
+				5B7960AA298C76AC00947879 /* ShazamHelper.swift */,
+				5B793BBD298E1D4800D57757 /* Location */,
+			);
+			path = Helpers;
+			sourceTree = "<group>";
+		};
+		5B5E7F5C298F35B900AA588C /* Realm */ = {
+			isa = PBXGroup;
+			children = (
+				5B5E7F5D298F36B900AA588C /* SyncContentView.swift */,
+				5B5E7F5F298F36E300AA588C /* OpenSyncedRealmView.swift */,
+			);
+			path = Realm;
 			sourceTree = "<group>";
 		};
 		5B793BBD298E1D4800D57757 /* Location */ = {
@@ -121,6 +148,7 @@
 				5B7960AE298C77F900947879 /* Model.swift */,
 				5B7960AC298C77BB00947879 /* AppKeys.swift */,
 				5B79609C298C74A900947879 /* shazam_socialApp.swift */,
+				5B5E7F57298F2E3A00AA588C /* Helpers */,
 				5B43D328298C8A14006B56EA /* Views */,
 				5B7960A0298C74AB00947879 /* Assets.xcassets */,
 				5B7960A2298C74AB00947879 /* Preview Content */,
@@ -269,8 +297,11 @@
 			files = (
 				5B43D330298CAED2006B56EA /* ShazamView.swift in Sources */,
 				5B793BBA298E1CAE00D57757 /* LocalSearchService.swift in Sources */,
+				5B5E7F5E298F36B900AA588C /* SyncContentView.swift in Sources */,
 				5B793BB2298DC89D00D57757 /* DateToString.swift in Sources */,
+				5B5E7F59298F2E7700AA588C /* AuthenticationManager.swift in Sources */,
 				5B43D32E298CAEB4006B56EA /* FeedView.swift in Sources */,
+				5B5E7F60298F36E300AA588C /* OpenSyncedRealmView.swift in Sources */,
 				5B793BB8298E19F500D57757 /* LocationManager.swift in Sources */,
 				5B7960AF298C77F900947879 /* Model.swift in Sources */,
 				5B43D32C298C9F7D006B56EA /* LoginView.swift in Sources */,
@@ -278,6 +309,7 @@
 				5B7960AD298C77BB00947879 /* AppKeys.swift in Sources */,
 				5B793BBC298E1CCD00D57757 /* LocalSearchData.swift in Sources */,
 				5B79609D298C74A900947879 /* shazam_socialApp.swift in Sources */,
+				5B5E7F5B298F351F00AA588C /* SignUpView.swift in Sources */,
 				5B793BBF298E1EDD00D57757 /* LocationView.swift in Sources */,
 				5B7960AB298C76AC00947879 /* ShazamHelper.swift in Sources */,
 				5B43D332298CF2CE006B56EA /* NewPostView.swift in Sources */,
@@ -427,6 +459,20 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
+				OTHER_LDFLAGS = (
+					"$(inherited)",
+					"-l\"c++\"",
+					"-l\"compression\"",
+					"-l\"z\"",
+					"-framework",
+					"\"Realm\"",
+					"-framework",
+					"\"RealmSwift\"",
+					"-framework",
+					"\"Security\"",
+					"-weak_framework",
+					"\"SwiftUI\"",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = "brandonw504.shazam-social";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
@@ -461,6 +507,20 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
+				OTHER_LDFLAGS = (
+					"$(inherited)",
+					"-l\"c++\"",
+					"-l\"compression\"",
+					"-l\"z\"",
+					"-framework",
+					"\"Realm\"",
+					"-framework",
+					"\"RealmSwift\"",
+					"-framework",
+					"\"Security\"",
+					"-weak_framework",
+					"\"SwiftUI\"",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = "brandonw504.shazam-social";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;

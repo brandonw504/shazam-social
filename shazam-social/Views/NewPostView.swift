@@ -9,12 +9,12 @@ import SwiftUI
 import RealmSwift
 
 struct NewPostView: View {
+    @ObservedRealmObject var user: User
     @Environment(\.presentationMode) var presentationMode
     @StateObject var locationManager = LocationManager()
     @StateObject var localSearchViewData = LocalSearchViewData()
     
     @Binding var popView: Bool
-    @Binding var name: String
     
     var title: String?
     var artist: String?
@@ -25,8 +25,6 @@ struct NewPostView: View {
     @State private var location = ""
     @State private var showingAlert = false
     @State private var showingLocationPicker = false
-    
-    @ObservedResults(Post.self, sortDescriptor: SortDescriptor(keyPath: "createdAt", ascending: true)) var posts
         
     func addPost() -> Void {
         guard let songTitle = self.title else {
@@ -39,21 +37,21 @@ struct NewPostView: View {
             return
         }
         
-        let post = Post(name: self.name, title: songTitle, artist: songArtist, albumArtURL: albumArtURL.absoluteString, songID: songID ?? "", caption: self.caption, location: location, latitude: locationManager.location?.latitude, longitude: locationManager.location?.longitude)
-        $posts.append(post)
+        let post = Post(name: user.name, title: songTitle, artist: songArtist, albumArtURL: albumArtURL.absoluteString, songID: songID ?? "", caption: self.caption, location: location, latitude: locationManager.location?.latitude, longitude: locationManager.location?.longitude)
+        $user.posts.append(post)
 
-        let realm = try? Realm()
-        if let realm = realm {
-            do {
-                try realm.write {
-                    realm.add(post)
-                }
-            } catch let error {
-                print("Failed to add post: \(error.localizedDescription)")
-            }
-        } else {
-            print("Error: Realm did not initialize.")
-        }
+//        let realm = try? Realm()
+//        if let realm = realm {
+//            do {
+//                try realm.write {
+//                    realm.add(post)
+//                }
+//            } catch let error {
+//                print("Failed to add post: \(error.localizedDescription)")
+//            }
+//        } else {
+//            print("Error: Realm did not initialize.")
+//        }
     }
     
     var body: some View {
