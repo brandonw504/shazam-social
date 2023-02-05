@@ -37,21 +37,8 @@ struct NewPostView: View {
             return
         }
         
-        let post = Post(name: user.name, title: songTitle, artist: songArtist, albumArtURL: albumArtURL.absoluteString, songID: songID ?? "", caption: self.caption, location: location, latitude: locationManager.location?.latitude, longitude: locationManager.location?.longitude)
+        let post = Post(name: user.name, title: songTitle, artist: songArtist, albumArtURL: albumArtURL.absoluteString, songID: songID ?? "", caption: self.caption, createdAt: Date(), location: location, latitude: locationManager.location?.latitude, longitude: locationManager.location?.longitude)
         $user.posts.append(post)
-
-//        let realm = try? Realm()
-//        if let realm = realm {
-//            do {
-//                try realm.write {
-//                    realm.add(post)
-//                }
-//            } catch let error {
-//                print("Failed to add post: \(error.localizedDescription)")
-//            }
-//        } else {
-//            print("Error: Realm did not initialize.")
-//        }
     }
     
     var body: some View {

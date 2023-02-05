@@ -33,7 +33,7 @@ final class Post: EmbeddedObject, ObjectKeyIdentifiable {
     @Persisted var latitude: Double?
     @Persisted var longitude: Double?
     
-    convenience init(name: String, title: String, artist: String, albumArtURL: String, songID: String, caption: String, location: String?, latitude: CLLocationDegrees?, longitude: CLLocationDegrees?) {
+    convenience init(name: String, title: String, artist: String, albumArtURL: String, songID: String, caption: String, createdAt: Date, location: String?, latitude: CLLocationDegrees?, longitude: CLLocationDegrees?) {
         self.init()
         self.name = name
         self.title = title
@@ -41,7 +41,7 @@ final class Post: EmbeddedObject, ObjectKeyIdentifiable {
         self.albumArtURL = albumArtURL
         self.songID = songID
         self.caption = caption
-        self.createdAt = Date()
+        self.createdAt = createdAt
         self.location = location
         self.latitude = latitude
         self.longitude = longitude
