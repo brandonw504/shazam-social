@@ -39,14 +39,36 @@ struct FeedView: View {
         }
     }
     
-    func playOrStopSong(id: String) {
+    func playSong(id: String) {
+        musicPlayer.setQueue(with: [id])
+        musicPlayer.prepareToPlay()
+        musicPlayer.play()
+    }
+    
+    func stopSong() {
         switch musicPlayer.playbackState {
-        case .playing, .interrupted:
-            musicPlayer.pause()
+        case .playing:
+            musicPlayer.stop()
         default:
-            musicPlayer.setQueue(with: [id])
-            musicPlayer.prepareToPlay()
-            musicPlayer.play()
+            return
+        }
+    }
+    
+    func handleSong(id: String) {
+        switch musicPlayer.playbackState {
+        case .playing:
+            if (musicPlayer.nowPlayingItem?.playbackStoreID == id) {
+                musicPlayer.pause()
+            } else {
+                musicPlayer.stop()
+                playSong(id: id)
+            }
+        default:
+            if (musicPlayer.nowPlayingItem?.playbackStoreID == id) {
+                musicPlayer.play()
+            } else {
+                playSong(id: id)
+            }
         }
     }
     
@@ -57,15 +79,22 @@ struct FeedView: View {
                     ForEach(posts.reversed()) { post in
                         PostCard(post: post)
                         .id(post.id)
+                        .onTapGesture {
+                            handleSong(id: post.songID)
+                        }
                         .contextMenu {
                             Button(action: {
-                                playOrStopSong(id: post.songID)
+                                print("share to instagram")
                             }) {
-                                Label("Play on Apple Music", systemImage: "music.note")
+                                Label("Share to Instagram", systemImage: "square.and.arrow.up")
                             }
                         }
                     }
                     .onDelete(perform: $user.posts.remove)
+                }
+                .refreshable {
+                    posts.removeAll()
+                    getPosts()
                 }
             }
             .font(.title)
@@ -83,6 +112,7 @@ struct FeedView: View {
                     .accentColor(.blue),
                 trailing:
                     Button(action: {
+                        stopSong()
                         showingShazam = true
                         posts.removeAll()
                     }) {
