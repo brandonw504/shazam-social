@@ -23,9 +23,7 @@ struct FeedView: View {
     
     func getPosts() {
         let client = app!.currentUser?.mongoClient("mongodb-atlas")
-        // Select the database
         let database = client?.database(named: "shazam-social-db")
-        // Select the collection
         let collection = database!.collection(withName: "User")
         
         let pipeline: [Document] = [["$unwind": ["path": "$posts"]], ["$project": ["posts": 1]]]
@@ -87,7 +85,10 @@ struct FeedView: View {
                     }
                     .accentColor(.blue),
                 trailing:
-                    Button(action: { showingShazam = true }) {
+                    Button(action: {
+                        showingShazam = true
+                        posts.removeAll()
+                    }) {
                         Image(systemName: "plus")
                     }
             )

@@ -37,7 +37,10 @@ struct PostCard: View {
                     AsyncImage(url: URL(string: post.albumArtURL)) { image in
                         image.resizable().aspectRatio(contentMode: .fit).cornerRadius(15).padding(5)
                     } placeholder: {
-                        ProgressView()
+                        VStack {
+                            ProgressView()
+                            Text("Loading...").font(.system(size: 15)).foregroundColor(.gray)
+                        }
                     }
                     
                     HStack {
