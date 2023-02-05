@@ -17,9 +17,11 @@ struct ShazamView: View {
     @State private var popView = false
     @State private var scale = false
     
+    let background = "https://media.istockphoto.com/id/1353553203/photo/forest-wooden-table-background-summer-sunny-meadow-with-green-grass-forest-trees-background.jpg?b=1&s=170667a&w=0&k=20&c=-jvR1WDwcloLXRgRTGeyG3frvrhPIbegdemeL6vY2Pk="
+    
     var body: some View {
         ZStack {
-            AsyncImage(url: URL(string: "https://media.istockphoto.com/id/1353553203/photo/forest-wooden-table-background-summer-sunny-meadow-with-green-grass-forest-trees-background.jpg?b=1&s=170667a&w=0&k=20&c=-jvR1WDwcloLXRgRTGeyG3frvrhPIbegdemeL6vY2Pk=")) { image in
+            AsyncImage(url: URL(string: background)) { image in
                 image
                     .resizable()
                     .scaledToFill()

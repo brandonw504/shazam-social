@@ -19,6 +19,7 @@ struct LocationView: View {
     
     var body: some View {
         VStack {
+            Divider()
             HStack {
                 TextField("Search for a location", text: $localSearchViewData.locationText).focused($locationIsFocused).onTapGesture {
                     showingSearchResults = true
@@ -33,8 +34,7 @@ struct LocationView: View {
                 }) {
                     Image(systemName: "multiply.circle.fill").foregroundColor(.gray).font(.system(size: 20))
                 }
-            }.padding([.top, .bottom], 3)
-            
+            }.padding(3)
             Divider()
             
             if (showingSearchResults) {

@@ -48,11 +48,15 @@ struct LoginView: View {
                 
                 Group {
                     TextField("Email", text: $authManager.email)
+                        .padding(.horizontal)
                         .textFieldStyle(RoundedBorderTextFieldStyle())
+                        .disableAutocorrection(true)
                         .textInputAutocapitalization(.never)
                     
                     SecureField("Password", text: $authManager.password)
+                        .padding(.horizontal)
                         .textFieldStyle(RoundedBorderTextFieldStyle())
+                        .disableAutocorrection(true)
                         .textInputAutocapitalization(.never)
                 }
                 
@@ -65,18 +69,20 @@ struct LoginView: View {
                         .foregroundColor(.pink)
                 }
                 
-                Button("Log In") {
-                    isLoggingIn = true
-                    authManager.login()
-                    isLoggingIn = false
+                Group {
+                    Button("Log In") {
+                        isLoggingIn = true
+                        authManager.login()
+                        isLoggingIn = false
+                    }
+                    .buttonStyle(.borderedProminent)
+                    .disabled(!authManager.authIsEnabled)
+                    
+                    Button("Don't have an account? Sign up!") {
+                        showingSignUp = true
+                    }
+                    .disabled(authManager.isLoading)
                 }
-                .buttonStyle(.borderedProminent)
-                .disabled(!authManager.authIsEnabled)
-                
-                Button("Don't have an account? Sign up!") {
-                    showingSignUp = true
-                }
-                .disabled(authManager.isLoading)
             }
             .navigationDestination(isPresented: $showingSignUp) {
                 SignUpView()

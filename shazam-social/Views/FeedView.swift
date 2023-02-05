@@ -12,13 +12,10 @@ import CoreLocation
 
 struct FeedView: View {
     @ObservedRealmObject var user: User
-//    @ObservedResults(User.self) var users
-//    @ObservedResults(Post.self, sortDescriptor: SortDescriptor(keyPath: "createdAt", ascending: false)) var posts
     @Environment(\.presentationMode) var presentationMode
+    
     @State private var musicPlayer = MPMusicPlayerController.applicationMusicPlayer
-    
     @State private var showingShazam = false
-    
     @State var posts = [Post]()
     
     func getPosts() {

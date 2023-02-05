@@ -73,18 +73,20 @@ struct SignUpView: View {
                     .foregroundColor(.pink)
             }
             
-            Button("Sign Up") {
-                isLoggingIn = true
-                authManager.signup(name: name)
-                isLoggingIn = false
+            Group {
+                Button("Sign Up") {
+                    isLoggingIn = true
+                    authManager.signup(name: name)
+                    isLoggingIn = false
+                }
+                .buttonStyle(.borderedProminent)
+                .disabled(!authManager.authIsEnabled)
+                
+                Button("Already have an account? Log in!") {
+                    presentationMode.wrappedValue.dismiss()
+                }
+                .disabled(authManager.isLoading)
             }
-            .buttonStyle(.borderedProminent)
-            .disabled(!authManager.authIsEnabled)
-            
-            Button("Already have an account? Log in!") {
-                presentationMode.wrappedValue.dismiss()
-            }
-            .disabled(authManager.isLoading)
         }
     }
 }
