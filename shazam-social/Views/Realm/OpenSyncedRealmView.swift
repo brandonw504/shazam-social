@@ -8,15 +8,11 @@
 import SwiftUI
 import RealmSwift
 
-/// This view opens a synced realm.
+/**
+ `Opens a synced realm and creates a user if needed.`
+ */
 struct OpenSyncedRealmView: View {
-    // Use AsyncOpen to download the latest changes from
-    // your App Services app before opening the realm.
-    // Leave the `partitionValue` an empty string to get this
-    // value from the environment object passed in above.
-//    @AsyncOpen(appId: realmKey, partitionValue: "", timeout: 4000) var asyncOpen
-    
-    // always show data, offline
+    // Try to open a realm, if there's no connection then use a previously opened realm.
     @AutoOpen(appId: realmKey, partitionValue: "", timeout: 4000) var realmOpen
     
     var body: some View {
@@ -27,7 +23,8 @@ struct OpenSyncedRealmView: View {
             ProgressView("Waiting for user to log in...")
         case .open(let realm):
             FeedView(user: {
-                if realm.objects(User.self).count == 0 {
+                // If there's no user in the realm, make a new user and pass it into the feed.
+                if (realm.objects(User.self).count == 0) {
                     do {
                         try realm.write {
                             realm.add(User(name: AuthenticationManager.name))

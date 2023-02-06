@@ -23,6 +23,7 @@ struct LoginView: View {
                 if isLoggingIn {
                     ProgressView()
                 }
+                
                 if let error = error {
                     Text("Error: \(error.localizedDescription)")
                 }
@@ -31,7 +32,8 @@ struct LoginView: View {
                     AsyncImage(url: URL(string: "https://assets.stickpng.com/images/580b57fcd9996e24bc43c538.png")) { image in
                         image
                             .resizable()
-                            .frame(width: 300, height: 300)
+                            .padding()
+                            .frame(width: 200, height: 200)
                             .aspectRatio(contentMode: .fit)
                             .scaleEffect(scale ? 0.95 : 1.05)
                             .task {

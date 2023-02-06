@@ -7,6 +7,9 @@
 
 import SwiftUI
 
+/**
+ `Displays a post tile.`
+ */
 struct PostCard: View {
     var post: Post
     

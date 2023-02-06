@@ -7,8 +7,10 @@
 
 import Foundation
 import RealmSwift
-import AuthenticationServices
 
+/**
+ `Contains all the authentication functions.`
+ */
 class AuthenticationManager: ObservableObject {
     static var name: String = ""
     @Published var email: String = ""
@@ -18,7 +20,6 @@ class AuthenticationManager: ObservableObject {
     
     func isValidEmail(_ email: String) -> Bool {
         let emailRegEx = "[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,64}"
-
         let emailPred = NSPredicate(format:"SELF MATCHES %@", emailRegEx)
         return emailPred.evaluate(with: email)
     }
@@ -29,23 +30,6 @@ class AuthenticationManager: ObservableObject {
     
     var enableButtons: Bool {
         !isLoading && authIsEnabled
-    }
-    
-    func anonymouslyLogin() {
-        isLoading = true
-        errorMessage = nil
-        
-        app!.login(credentials: .anonymous) { [weak self] result in
-            DispatchQueue.main.async {
-                switch result {
-                    case .success(_):
-                        print("success anonymously logged in")
-                    case .failure(_):
-                        self?.errorMessage = "login failed"
-                }
-                self?.isLoading = false
-            }
-        }
     }
     
     func signup(name: String) {
@@ -84,26 +68,6 @@ class AuthenticationManager: ObservableObject {
             }
         }
     }
-    
-//    func loginWithApple(identityToken: String) {
-//        let credentials = Credentials.apple(idToken: identityToken)
-//
-//        isLoading = true
-//        errorMessage = nil
-//
-//        // Fetch IDToken via the Apple SDK
-//        app!.login(credentials: credentials) { [weak self] result in
-//            DispatchQueue.main.async {
-//                switch result {
-//                case .failure(let error):
-//                    self?.errorMessage = "Login failed: \(error.localizedDescription)"
-//                case .success(let user):
-//                    print("Successfully logged in as user \(user)")
-//                }
-//                self?.isLoading = false
-//            }
-//        }
-//    }
     
     static func logout() {
         app!.currentUser?.logOut(completion: { error in

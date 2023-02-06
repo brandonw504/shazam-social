@@ -23,6 +23,7 @@ final class User: Object, ObjectKeyIdentifiable {
 final class Post: EmbeddedObject, ObjectKeyIdentifiable {
     @Persisted var id: ObjectId
     @Persisted var name: String
+    @Persisted var userID: ObjectId
     @Persisted var title: String
     @Persisted var artist: String
     @Persisted var albumArtURL: String
@@ -33,9 +34,10 @@ final class Post: EmbeddedObject, ObjectKeyIdentifiable {
     @Persisted var latitude: Double?
     @Persisted var longitude: Double?
     
-    convenience init(name: String, title: String, artist: String, albumArtURL: String, songID: String, caption: String, createdAt: Date, location: String?, latitude: CLLocationDegrees?, longitude: CLLocationDegrees?) {
+    convenience init(name: String, userID: ObjectId, title: String, artist: String, albumArtURL: String, songID: String, caption: String, createdAt: Date, location: String?, latitude: CLLocationDegrees?, longitude: CLLocationDegrees?) {
         self.init()
         self.name = name
+        self.userID = userID
         self.title = title
         self.artist = artist
         self.albumArtURL = albumArtURL

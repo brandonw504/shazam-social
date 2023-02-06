@@ -11,7 +11,7 @@ import MediaPlayer
 import CoreLocation
 
 /**
- `This view` **hello**
+ `The homepage, where users can see each others' posts and play the songs.`
  */
 struct FeedView: View {
     @ObservedRealmObject var user: User
@@ -19,14 +19,20 @@ struct FeedView: View {
     
     @State private var musicPlayer = MPMusicPlayerController.applicationMusicPlayer
     @State private var showingShazam = false
+    @State private var showingAlert = false
     @State var posts = [Post]()
     
     // MARK: - Database
+    // In the future, I will switch to using protocols in a database manager.
     func getPosts() {
-        let client = app!.currentUser?.mongoClient("mongodb-atlas")
-        let database = client?.database(named: "shazam-social-db")
-        let collection = database!.collection(withName: "User")
+        guard let client = app?.currentUser?.mongoClient("mongodb-atlas") else {
+            print("Error: Could not connect to database.")
+            return
+        }
+        let database = client.database(named: "shazam-social-db")
+        let collection = database.collection(withName: "User")
         
+        // The pipeline gets the embedded Post objects and filters down to get only the posts (since unwind just makes the posts a property of the user).
         let pipeline: [Document] = [["$unwind": ["path": "$posts"]], ["$project": ["posts": 1]]]
         collection.aggregate(pipeline: pipeline) { result in
             switch result {
@@ -35,8 +41,11 @@ struct FeedView: View {
                 return
             case .success(let results):
                 for result in results {
+                    // MongoDB gives back a document that's wrapped in multiple optionals, so it looks very messy.
                     if let res = result["posts"]??.documentValue {
+                        // I force unwrap the post properties because I know when I set them in NewPostView they're guaranteed.
                         let post = Post(name: res["name"]!!.stringValue!,
+                                        userID: res["userID"]!!.objectIdValue!,
                                         title: res["title"]!!.stringValue!,
                                         artist: res["artist"]!!.stringValue!,
                                         albumArtURL: res["albumArtURL"]!!.stringValue!,
@@ -71,6 +80,7 @@ struct FeedView: View {
         }
     }
     
+    // Play the tapped song. If it's already playing, pause it.
     func handleSong(id: String) {
         switch musicPlayer.playbackState {
         case .playing:
@@ -107,7 +117,6 @@ struct FeedView: View {
                             }
                         }
                     }
-                    .onDelete(perform: $user.posts.remove)
                 }
                 .refreshable {
                     posts.removeAll()
@@ -138,6 +147,9 @@ struct FeedView: View {
             )
             .navigationDestination(isPresented: $showingShazam) {
                 ShazamView(user: user)
+            }
+            .alert(isPresented: $showingAlert) {
+                Alert(title: Text("Error"), message: Text("You can't delete someone else's post."), dismissButton: .default(Text("OK")))
             }
             .onAppear {
                 getPosts()

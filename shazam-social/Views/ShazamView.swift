@@ -8,6 +8,9 @@
 import SwiftUI
 import RealmSwift
 
+/**
+ `Users can Shazam a song here.`
+ */
 struct ShazamView: View {
     @ObservedRealmObject var user: User
     @Environment(\.presentationMode) var presentationMode

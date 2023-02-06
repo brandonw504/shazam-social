@@ -20,12 +20,19 @@ struct LocalSearchData: Identifiable {
     }
 }
 
+/**
+ `Abstracts the location search away from the view`
+ */
 final class LocalSearchViewData: ObservableObject {
     private var cancellable: AnyCancellable?
 
+    // Updates whenever it changes (user types in search bar) and performs a search for points of interest.
+    // Only start searching when the user has typed in 4+ characters so you don't run a lot of searches on very broad search terms.
     @Published var locationText = "" {
         didSet {
-            search(text: locationText)
+            if (locationText.count > 3) {
+                search(text: locationText)
+            }
         }
     }
     
@@ -42,6 +49,7 @@ final class LocalSearchViewData: ObservableObject {
         }
     }
     
+    // If we don't have the user's current location, default to Davis, CA.
     private func search(text: String) {
         service.search(searchText: text, center: currentLocation ?? CLLocationCoordinate2D(latitude: 38.56043542143025, longitude: -121.76042214745614))
     }

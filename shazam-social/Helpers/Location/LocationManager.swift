@@ -8,6 +8,9 @@
 import Foundation
 import CoreLocation
 
+/**
+ `Requests the user's location.`
+ */
 class LocationManager: NSObject, ObservableObject, CLLocationManagerDelegate {
     let manager = CLLocationManager()
 

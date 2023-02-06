@@ -8,6 +8,9 @@
 import SwiftUI
 import RealmSwift
 
+/**
+ `Users can add a caption and location to their post.`
+ */
 struct NewPostView: View {
     @ObservedRealmObject var user: User
     @Environment(\.presentationMode) var presentationMode
@@ -38,6 +41,7 @@ struct NewPostView: View {
         }
         
         let post = Post(name: user.name,
+                        userID: user._id,
                         title: songTitle,
                         artist: songArtist,
                         albumArtURL: albumArtURL.absoluteString,
@@ -45,8 +49,9 @@ struct NewPostView: View {
                         caption: self.caption,
                         createdAt: Date(),
                         location: location,
-                        latitude:locationManager.location?.latitude,
+                        latitude: locationManager.location?.latitude,
                         longitude: locationManager.location?.longitude)
+        
         $user.posts.append(post)
     }
     
@@ -63,8 +68,6 @@ struct NewPostView: View {
                 RoundedRectangle(cornerRadius: 10)
                     .fill(Color.purple.opacity(0.5))
                     .frame(width: 300, height: 300)
-                    .cornerRadius(10)
-                    .redacted(reason: .privacy)
             }
             VStack(alignment: .center) {
                 Text(title ?? "Title")
@@ -86,7 +89,6 @@ struct NewPostView: View {
                 Spacer()
                 Button(action: {
                     showingLocationPicker = true
-                    locationManager.requestLocation()
                 }) {
                     HStack {
                         Text("Locate me")

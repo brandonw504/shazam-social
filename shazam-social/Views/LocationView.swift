@@ -7,6 +7,9 @@
 
 import SwiftUI
 
+/**
+ `Users can search for a location.`
+ */
 struct LocationView: View {
     @Environment(\.presentationMode) var presentationMode
     @StateObject var locationManager = LocationManager()
@@ -21,6 +24,13 @@ struct LocationView: View {
         VStack {
             Divider()
             HStack {
+                /*
+                 I believe the error "Publishing changes from within view updates is not allowed, this will cause undefined behavior." comes from here.
+                 The location search throws a purple error (memory leak) because it updates an @Published variable, which then affects a List.
+                 This article suggested a LazyVStack or a ScrollView instead of a VStack to fix it, but they don't provide the behavior I'm looking for.
+                 https://www.donnywals.com/xcode-14-publishing-changes-from-within-view-updates-is-not-allowed-this-will-cause-undefined-behavior/
+                 My implementation doesn't seem to do anything absolutely wrong, so I decided to ignore the warning.
+                 */
                 TextField("Search for a location", text: $localSearchViewData.locationText).focused($locationIsFocused).onTapGesture {
                     showingSearchResults = true
                     locationManager.requestLocation()

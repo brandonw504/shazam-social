@@ -8,13 +8,13 @@
 import SwiftUI
 import RealmSwift
 
-let app: RealmSwift.App? = RealmSwift.App(id: realmKey) // TODO: key in
+let app: RealmSwift.App? = RealmSwift.App(id: realmKey)
 
 @main
 struct shazam_socialApp: SwiftUI.App {
     var body: some Scene {
         WindowGroup {
-            // Using Sync?
+            // Make sure the app is using sync.
             if let app = app {
                 SyncContentView(app: app)
             }

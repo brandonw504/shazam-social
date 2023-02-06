@@ -9,6 +9,9 @@ import Foundation
 import Combine
 import MapKit
 
+/**
+ `Performs an MKLocalSearch to find points of interest around the user's current location.`
+ */
 final class LocalSearchService {
     let localSearchPublisher = PassthroughSubject<[MKMapItem], Never>()
     private let radius: CLLocationDistance
@@ -29,6 +32,7 @@ final class LocalSearchService {
         request.region = MKCoordinateRegion(center: center, latitudinalMeters: radius, longitudinalMeters: radius)
         let search = MKLocalSearch(request: request)
 
+        // Pass the search results back up to the viewData in LocalSearchData.
         search.start { [weak self](response, _) in
             guard let response = response else {
                 return
