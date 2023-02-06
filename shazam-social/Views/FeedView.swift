@@ -10,6 +10,9 @@ import RealmSwift
 import MediaPlayer
 import CoreLocation
 
+/**
+ `This view` **hello**
+ */
 struct FeedView: View {
     @ObservedRealmObject var user: User
     @Environment(\.presentationMode) var presentationMode
@@ -18,6 +21,7 @@ struct FeedView: View {
     @State private var showingShazam = false
     @State var posts = [Post]()
     
+    // MARK: - Database
     func getPosts() {
         let client = app!.currentUser?.mongoClient("mongodb-atlas")
         let database = client?.database(named: "shazam-social-db")
@@ -31,14 +35,27 @@ struct FeedView: View {
                 return
             case .success(let results):
                 for result in results {
-                    let res = result["posts"]!!.documentValue!
-                    let post = Post(name: res["name"]!!.stringValue!, title: res["title"]!!.stringValue!, artist: res["artist"]!!.stringValue!, albumArtURL: res["albumArtURL"]!!.stringValue!, songID: res["songID"]!!.stringValue!, caption: res["caption"]!!.stringValue!, createdAt: res["createdAt"]!!.dateValue!, location: res["location"]!!.stringValue, latitude: res["latitude"]!!.doubleValue, longitude: res["longitude"]!!.doubleValue)
-                    posts.append(post)
+                    if let res = result["posts"]??.documentValue {
+                        let post = Post(name: res["name"]!!.stringValue!,
+                                        title: res["title"]!!.stringValue!,
+                                        artist: res["artist"]!!.stringValue!,
+                                        albumArtURL: res["albumArtURL"]!!.stringValue!,
+                                        songID: res["songID"]!!.stringValue!,
+                                        caption: res["caption"]!!.stringValue!,
+                                        createdAt: res["createdAt"]!!.dateValue!,
+                                        location: res["location"]!!.stringValue,
+                                        latitude: res["latitude"]!!.doubleValue,
+                                        longitude: res["longitude"]!!.doubleValue)
+                        posts.append(post)
+                    } else {
+                        print("Result from database was nil, no posts found.")
+                    }
                 }
             }
         }
     }
     
+    // MARK: - Music Player
     func playSong(id: String) {
         musicPlayer.setQueue(with: [id])
         musicPlayer.prepareToPlay()

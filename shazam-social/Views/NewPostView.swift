@@ -26,7 +26,7 @@ struct NewPostView: View {
     @State private var showingAlert = false
     @State private var showingLocationPicker = false
         
-    func addPost() -> Void {
+    func addPost() {
         guard let songTitle = self.title else {
             return
         }
@@ -37,7 +37,16 @@ struct NewPostView: View {
             return
         }
         
-        let post = Post(name: user.name, title: songTitle, artist: songArtist, albumArtURL: albumArtURL.absoluteString, songID: songID ?? "", caption: self.caption, createdAt: Date(), location: location, latitude: locationManager.location?.latitude, longitude: locationManager.location?.longitude)
+        let post = Post(name: user.name,
+                        title: songTitle,
+                        artist: songArtist,
+                        albumArtURL: albumArtURL.absoluteString,
+                        songID: songID ?? "",
+                        caption: self.caption,
+                        createdAt: Date(),
+                        location: location,
+                        latitude:locationManager.location?.latitude,
+                        longitude: locationManager.location?.longitude)
         $user.posts.append(post)
     }
     

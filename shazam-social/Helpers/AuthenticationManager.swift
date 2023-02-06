@@ -24,7 +24,7 @@ class AuthenticationManager: ObservableObject {
     }
     
     var authIsEnabled: Bool {
-        isValidEmail(email) && password.count > 5
+        isValidEmail(email) && password.count > 0
     }
     
     var enableButtons: Bool {

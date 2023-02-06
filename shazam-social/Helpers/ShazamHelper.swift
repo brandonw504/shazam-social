@@ -19,7 +19,7 @@ struct ShazamMedia: Decodable {
 }
 
 class ShazamHelper: NSObject, ObservableObject {
-    @Published var shazamMedia =  ShazamMedia(title: "Title...",
+    @Published var shazamMedia = ShazamMedia(title: "Title...",
                                               subtitle: "Subtitle...",
                                               artist: "Artist Name...",
                                               albumArtURL: URL(string: "https://google.com"),
