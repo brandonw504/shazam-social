@@ -27,6 +27,11 @@
 		5B7960AB298C76AC00947879 /* ShazamHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B7960AA298C76AC00947879 /* ShazamHelper.swift */; };
 		5B7960AD298C77BB00947879 /* AppKeys.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B7960AC298C77BB00947879 /* AppKeys.swift */; };
 		5B7960AF298C77F900947879 /* Model.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B7960AE298C77F900947879 /* Model.swift */; };
+		5BFC70DD2990EB8B00E4D566 /* ProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BFC70DC2990EB8B00E4D566 /* ProfileView.swift */; };
+		5BFC70DF2990F0A600E4D566 /* ProfilePostView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BFC70DE2990F0A600E4D566 /* ProfilePostView.swift */; };
+		5BFC70E12990F57A00E4D566 /* MapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BFC70E02990F57900E4D566 /* MapView.swift */; };
+		5BFC70E32991074900E4D566 /* CachedAsyncImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BFC70E22991074900E4D566 /* CachedAsyncImage.swift */; };
+		5BFC70E52991075700E4D566 /* ImageLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BFC70E42991075700E4D566 /* ImageLoader.swift */; };
 		6C4D6F2F2BF0D972F3D64547 /* Pods_shazam_social.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8F2AD948D846F0A7FAE4ABCB /* Pods_shazam_social.framework */; };
 /* End PBXBuildFile section */
 
@@ -53,6 +58,11 @@
 		5B7960AA298C76AC00947879 /* ShazamHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShazamHelper.swift; sourceTree = "<group>"; };
 		5B7960AC298C77BB00947879 /* AppKeys.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppKeys.swift; sourceTree = "<group>"; };
 		5B7960AE298C77F900947879 /* Model.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Model.swift; sourceTree = "<group>"; };
+		5BFC70DC2990EB8B00E4D566 /* ProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileView.swift; sourceTree = "<group>"; };
+		5BFC70DE2990F0A600E4D566 /* ProfilePostView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfilePostView.swift; sourceTree = "<group>"; };
+		5BFC70E02990F57900E4D566 /* MapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapView.swift; sourceTree = "<group>"; };
+		5BFC70E22991074900E4D566 /* CachedAsyncImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CachedAsyncImage.swift; sourceTree = "<group>"; };
+		5BFC70E42991075700E4D566 /* ImageLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageLoader.swift; sourceTree = "<group>"; };
 		8F2AD948D846F0A7FAE4ABCB /* Pods_shazam_social.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_shazam_social.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		C0C3717F40E97D747BCED05C /* Pods-shazam-social.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-shazam-social.release.xcconfig"; path = "Target Support Files/Pods-shazam-social/Pods-shazam-social.release.xcconfig"; sourceTree = "<group>"; };
 		C848167B6200EF926991AEF7 /* Pods-shazam-social.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-shazam-social.debug.xcconfig"; path = "Target Support Files/Pods-shazam-social/Pods-shazam-social.debug.xcconfig"; sourceTree = "<group>"; };
@@ -77,6 +87,8 @@
 				5B43D32B298C9F7D006B56EA /* LoginView.swift */,
 				5B5E7F5A298F351F00AA588C /* SignUpView.swift */,
 				5B43D32D298CAEB4006B56EA /* FeedView.swift */,
+				5BFC70E02990F57900E4D566 /* MapView.swift */,
+				5BFC70DC2990EB8B00E4D566 /* ProfileView.swift */,
 				5B43D32F298CAED2006B56EA /* ShazamView.swift */,
 				5B43D331298CF2CE006B56EA /* NewPostView.swift */,
 				5B793BBE298E1EDD00D57757 /* LocationView.swift */,
@@ -88,8 +100,10 @@
 		5B43D333298D0655006B56EA /* Components */ = {
 			isa = PBXGroup;
 			children = (
+				5BFC70DE2990F0A600E4D566 /* ProfilePostView.swift */,
 				5B43D334298D0662006B56EA /* PostCard.swift */,
 				5B793BB1298DC89D00D57757 /* DateToString.swift */,
+				5BFC70E22991074900E4D566 /* CachedAsyncImage.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -99,6 +113,7 @@
 			children = (
 				5B5E7F58298F2E7700AA588C /* AuthenticationManager.swift */,
 				5B7960AA298C76AC00947879 /* ShazamHelper.swift */,
+				5BFC70E42991075700E4D566 /* ImageLoader.swift */,
 				5B793BBD298E1D4800D57757 /* Location */,
 			);
 			path = Helpers;
@@ -301,16 +316,21 @@
 				5B793BB2298DC89D00D57757 /* DateToString.swift in Sources */,
 				5B5E7F59298F2E7700AA588C /* AuthenticationManager.swift in Sources */,
 				5B43D32E298CAEB4006B56EA /* FeedView.swift in Sources */,
+				5BFC70E32991074900E4D566 /* CachedAsyncImage.swift in Sources */,
+				5BFC70DF2990F0A600E4D566 /* ProfilePostView.swift in Sources */,
+				5BFC70E12990F57A00E4D566 /* MapView.swift in Sources */,
 				5B5E7F60298F36E300AA588C /* OpenSyncedRealmView.swift in Sources */,
 				5B793BB8298E19F500D57757 /* LocationManager.swift in Sources */,
 				5B7960AF298C77F900947879 /* Model.swift in Sources */,
 				5B43D32C298C9F7D006B56EA /* LoginView.swift in Sources */,
 				5B43D335298D0662006B56EA /* PostCard.swift in Sources */,
 				5B7960AD298C77BB00947879 /* AppKeys.swift in Sources */,
+				5BFC70E52991075700E4D566 /* ImageLoader.swift in Sources */,
 				5B793BBC298E1CCD00D57757 /* LocalSearchData.swift in Sources */,
 				5B79609D298C74A900947879 /* shazam_socialApp.swift in Sources */,
 				5B5E7F5B298F351F00AA588C /* SignUpView.swift in Sources */,
 				5B793BBF298E1EDD00D57757 /* LocationView.swift in Sources */,
+				5BFC70DD2990EB8B00E4D566 /* ProfileView.swift in Sources */,
 				5B7960AB298C76AC00947879 /* ShazamHelper.swift in Sources */,
 				5B43D332298CF2CE006B56EA /* NewPostView.swift in Sources */,
 			);

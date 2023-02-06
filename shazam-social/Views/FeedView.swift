@@ -18,9 +18,12 @@ struct FeedView: View {
     @Environment(\.presentationMode) var presentationMode
     
     @State private var musicPlayer = MPMusicPlayerController.applicationMusicPlayer
+    @State private var showingProfile = false
     @State private var showingShazam = false
+    @State private var showingMap = false
     @State private var showingAlert = false
     @State var posts = [Post]()
+    @State private var currentCoordinates = CLLocationCoordinate2D()
     
     // MARK: - Database
     // In the future, I will switch to using protocols in a database manager.
@@ -110,10 +113,19 @@ struct FeedView: View {
                             handleSong(id: post.songID)
                         }
                         .contextMenu {
-                            Button(action: {
-                                print("share to instagram")
-                            }) {
-                                Label("Share to Instagram", systemImage: "square.and.arrow.up")
+                            if let latitude = post.latitude {
+                                if let longitude = post.longitude {
+                                    Button(action: {
+                                        let lat = CLLocationDegrees(latitude)
+                                        let long = CLLocationDegrees(longitude)
+                                        currentCoordinates = CLLocationCoordinate2D(latitude: lat, longitude: long)
+                                        showingMap = true
+                                        stopSong()
+                                        posts.removeAll()
+                                    }) {
+                                        Label("View Map", systemImage: "mappin.and.ellipse")
+                                    }
+                                }
                             }
                         }
                     }
@@ -127,16 +139,18 @@ struct FeedView: View {
             .padding(.top, 25)
             .navigationTitle("Shazam Social")
             .navigationBarBackButtonHidden(true)
-            .navigationBarItems(
-                leading:
+            .toolbar {
+                ToolbarItem(placement: .navigationBarLeading) {
                     Button(action: {
-                        AuthenticationManager.logout()
-                        presentationMode.wrappedValue.dismiss()
+                        stopSong()
+                        showingProfile = true
+                        posts.removeAll()
                     }) {
-                        Text("Logout")
+                        Image(systemName: "person.circle")
                     }
-                    .accentColor(.blue),
-                trailing:
+                }
+                
+                ToolbarItem(placement: .navigationBarTrailing) {
                     Button(action: {
                         stopSong()
                         showingShazam = true
@@ -144,9 +158,16 @@ struct FeedView: View {
                     }) {
                         Image(systemName: "plus")
                     }
-            )
+                }
+            }
+            .navigationDestination(isPresented: $showingProfile) {
+                ProfileView(user: user)
+            }
             .navigationDestination(isPresented: $showingShazam) {
                 ShazamView(user: user)
+            }
+            .navigationDestination(isPresented: $showingMap) {
+                MapView(coordinates: currentCoordinates)
             }
             .alert(isPresented: $showingAlert) {
                 Alert(title: Text("Error"), message: Text("You can't delete someone else's post."), dismissButton: .default(Text("OK")))

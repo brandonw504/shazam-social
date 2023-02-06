@@ -64,5 +64,6 @@ struct LocationView: View {
                 Spacer()
             }
         }
+        .navigationTitle("Location Search")
     }
 }
