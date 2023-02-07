@@ -33,7 +33,7 @@ class ImageLoader: ObservableObject {
         isLoading = true
         errorMessage = nil
         
-        // Load the image from the URL passed in.
+        // Load the image from the URL passed in and cache it.
         let request = URLRequest(url: fetchURL, cachePolicy: .returnCacheDataElseLoad)
         let task = URLSession.shared.dataTask(with: request) { [weak self] (data, response, error) in
             DispatchQueue.main.async {

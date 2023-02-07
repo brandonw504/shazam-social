@@ -33,9 +33,9 @@ struct MapView: View {
             MapAnnotation(coordinate: CLLocationCoordinate2D(latitude: post.latitude!, longitude: post.longitude!)) {
                 Image(systemName: "mappin")
                     .resizable()
-                    .aspectRatio(contentMode: .fill)
+                    .aspectRatio(contentMode: .fit)
                     .foregroundColor(.red)
-                    .frame(width: 20, height: 20)
+                    .frame(width: 50, height: 50)
                     .onTapGesture {
                         // Ensure that the tapped post is assigned before showing the sheet.
                         DispatchQueue.main.async {
