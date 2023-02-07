@@ -11,7 +11,12 @@ Sign up for an account, or sign in with these credentials.\
 Email: welcomeshazam@apple.com\
 Password: Shazam!\
 You won't be prompted for a name when logging in, but it's set to Shazam Team with this login.\
-On the home view, you'll be able to see posts by other users who Shazamed songs. At the bottom, you can choose to view the posts in a map format, where you can tap on a marker and see information about the song the user Shazamed. To make your own post, go to the feed page and tap the _New Post_ button on the navigation bar. Once you've Shazamed the song, you can add a caption and a location to your post. Tap "Share Post" and you're all set! You can listen to any of the songs on your feed with Apple Music by tapping on the play button on each tile. You'll need an Apple Music subscription for this. Check out your profile page for all of your Shazamed songs!
+![Sign in](https://user-images.githubusercontent.com/71607013/217356404-0b8cf75f-83d4-4a86-9071-93dd5c75569a.MP4)\
+On the home view, you'll be able to see posts by other users who Shazamed songs. At the bottom, you can choose to view the posts in a map format, where you can tap on a marker and see information about the song the user Shazamed.\
+![Feed and Map View](https://user-images.githubusercontent.com/71607013/217356695-4d516387-71e8-4399-8a23-70f82fc52f50.MP4)\
+To make your own post, go to the feed page and tap the _New Post_ button on the navigation bar. Once you've Shazamed the song, you can add a caption and a location to your post. Tap "Share Post" and you're all set!\
+![New Post](https://user-images.githubusercontent.com/71607013/217357262-39f689fe-cc8b-40a2-8ec9-dfb9aa497ada.mov)\
+You can listen to any of the songs on your feed with Apple Music by tapping on the play button on each tile. You'll need an Apple Music subscription for this. Check out your profile page for all of your Shazamed songs!
 
 ## Future Plans
 In the future, I plan to:
@@ -19,3 +24,6 @@ In the future, I plan to:
 - Implement a follower and following system.
 - Implement likes and comments.
 - Restrict the feed and world map to only show posts based on who users follow. 
+
+
+
