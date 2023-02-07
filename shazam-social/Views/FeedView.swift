@@ -7,6 +7,7 @@
 
 import SwiftUI
 import RealmSwift
+import MediaPlayer
 import CoreLocation
 
 /**
@@ -15,12 +16,14 @@ import CoreLocation
 struct FeedView: View {
     @ObservedRealmObject var user: User
     @Environment(\.presentationMode) var presentationMode
+    @State private var musicPlayer = MPMusicPlayerController.applicationMusicPlayer
     
     @State private var showingProfile = false
     @State private var showingShazam = false
     @State private var showingMap = false
     @State private var showingAlert = false
     @State var posts = [Post]()
+    @State private var currentlyPlaying: String? = nil
     
     // MARK: - Database
     // In the future, I will switch to using protocols in a database manager.
@@ -64,13 +67,56 @@ struct FeedView: View {
         }
     }
     
+    // MARK: - Music Player
+    func playSong(id: String) {
+        musicPlayer.setQueue(with: [id])
+        musicPlayer.prepareToPlay()
+        musicPlayer.play()
+        currentlyPlaying = id
+    }
+    
+    func stopSong() {
+        currentlyPlaying = nil
+        switch musicPlayer.playbackState {
+        case .playing:
+            musicPlayer.stop()
+        default:
+            return
+        }
+    }
+    
+    // Play the tapped song. If it's already playing, pause it.
+    // If it's a different song, stop the current one and play the new one.
+    func handleSong(id: String) {
+        switch musicPlayer.playbackState {
+        case .playing:
+            if (musicPlayer.nowPlayingItem?.playbackStoreID == id) {
+                musicPlayer.pause()
+                currentlyPlaying = nil
+            } else {
+                musicPlayer.stop()
+                playSong(id: id)
+            }
+        default:
+            if (musicPlayer.nowPlayingItem?.playbackStoreID == id) {
+                musicPlayer.play()
+                currentlyPlaying = id
+            } else {
+                playSong(id: id)
+            }
+        }
+    }
+    
     var body: some View {
         NavigationStack {
             VStack(spacing: 25) {
                 SwiftUI.List {
                     ForEach(posts.reversed()) { post in
-                        PostCard(post: post)
+                        PostCard(post: post, currentlyPlaying: $currentlyPlaying)
                         .id(post.id)
+                        .onTapGesture {
+                            handleSong(id: post.songID)
+                        }
                     }
                 }
                 .refreshable {
@@ -85,6 +131,7 @@ struct FeedView: View {
             .toolbar {
                 ToolbarItem(placement: .navigationBarLeading) {
                     Button(action: {
+                        stopSong()
                         showingProfile = true
                     }) {
                         Image(systemName: "person.circle")
@@ -93,6 +140,7 @@ struct FeedView: View {
                 
                 ToolbarItem(placement: .navigationBarTrailing) {
                     Button(action: {
+                        stopSong()
                         showingShazam = true
                     }) {
                         Text("New Post")
@@ -101,6 +149,7 @@ struct FeedView: View {
                 
                 ToolbarItem(placement: .bottomBar) {
                     Button(action: {
+                        stopSong()
                         showingMap = true
                     }) {
                         HStack {

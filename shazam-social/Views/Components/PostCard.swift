@@ -13,6 +13,7 @@ import MediaPlayer
  */
 struct PostCard: View {
     var post: Post
+    @Binding var currentlyPlaying: String?
     
     @State private var musicPlayer = MPMusicPlayerController.applicationMusicPlayer
     @State private var playing = false
@@ -22,42 +23,6 @@ struct PostCard: View {
         let now = Date()
         let time = now.offset(from: post.createdAt ?? Date())
         return time == "" ? "Just now" : time
-    }
-    
-    // MARK: - Music Player
-    func playSong(id: String) {
-        musicPlayer.setQueue(with: [id])
-        musicPlayer.prepareToPlay()
-        musicPlayer.play()
-    }
-    
-    func stopSong() {
-        switch musicPlayer.playbackState {
-        case .playing:
-            musicPlayer.stop()
-        default:
-            return
-        }
-    }
-    
-    // Play the tapped song. If it's already playing, pause it.
-    // If it's a different song, stop the current one and play the new one.
-    func handleSong(id: String) {
-        switch musicPlayer.playbackState {
-        case .playing:
-            if (musicPlayer.nowPlayingItem?.playbackStoreID == id) {
-                musicPlayer.pause()
-            } else {
-                musicPlayer.stop()
-                playSong(id: id)
-            }
-        default:
-            if (musicPlayer.nowPlayingItem?.playbackStoreID == id) {
-                musicPlayer.play()
-            } else {
-                playSong(id: id)
-            }
-        }
     }
     
     var body: some View {
@@ -92,14 +57,27 @@ struct PostCard: View {
                     // Custom AsyncImage that's cached. Prevents reloading when it scrolls off-screen.
                     CachedAsyncImage(url: post.albumArtURL)
 
-                    Image(systemName: "play.circle.fill")
-                        .resizable()
-                        .aspectRatio(contentMode: .fill)
-                        .padding(15)
-                        .frame(width: 75, height: 75)
-                        .onTapGesture {
-                            handleSong(id: post.songID)
+                    if let currentSong = currentlyPlaying {
+                        if (currentSong == post.songID) {
+                            Image(systemName: "pause.circle.fill")
+                                .resizable()
+                                .aspectRatio(contentMode: .fill)
+                                .padding(15)
+                                .frame(width: 75, height: 75)
+                        } else {
+                            Image(systemName: "play.circle.fill")
+                                .resizable()
+                                .aspectRatio(contentMode: .fill)
+                                .padding(15)
+                                .frame(width: 75, height: 75)
                         }
+                    } else {
+                        Image(systemName: "play.circle.fill")
+                            .resizable()
+                            .aspectRatio(contentMode: .fill)
+                            .padding(15)
+                            .frame(width: 75, height: 75)
+                    }
                 }
                 
                 HStack {
@@ -116,9 +94,6 @@ struct PostCard: View {
                     Spacer()
                 }
             }
-        }
-        .onDisappear {
-            stopSong()
         }
     }
 }

@@ -13,6 +13,7 @@ import MediaPlayer
  */
 struct MapPostView: View {
     @Binding var post: Post
+    @State private var playing = false
     
     @State private var musicPlayer = MPMusicPlayerController.applicationMusicPlayer
     
@@ -81,14 +82,23 @@ struct MapPostView: View {
                     ProgressView()
                 }
 
-                Image(systemName: "play.circle.fill")
-                    .resizable()
-                    .aspectRatio(contentMode: .fill)
-                    .padding(15)
-                    .frame(width: 75, height: 75)
-                    .onTapGesture {
-                        handleSong(id: post.songID)
-                    }
+                if (playing) {
+                    Image(systemName: "pause.circle.fill")
+                        .resizable()
+                        .aspectRatio(contentMode: .fill)
+                        .padding(15)
+                        .frame(width: 75, height: 75)
+                } else {
+                    Image(systemName: "play.circle.fill")
+                        .resizable()
+                        .aspectRatio(contentMode: .fill)
+                        .padding(15)
+                        .frame(width: 75, height: 75)
+                }
+            }
+            .onTapGesture {
+                playing.toggle()
+                handleSong(id: post.songID)
             }
             
             Text(post.name)

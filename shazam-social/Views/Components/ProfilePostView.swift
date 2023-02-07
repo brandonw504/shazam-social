@@ -13,6 +13,7 @@ import MediaPlayer
  */
 struct ProfilePostView: View {
     var post: Post
+    @State private var playing = false
     
     @State private var musicPlayer = MPMusicPlayerController.applicationMusicPlayer
     
@@ -71,14 +72,23 @@ struct ProfilePostView: View {
                 // Custom AsyncImage that's cached. Prevents reloading when it scrolls off-screen.
                 CachedAsyncImage(url: post.albumArtURL)
 
-                Image(systemName: "play.circle.fill")
-                    .resizable()
-                    .aspectRatio(contentMode: .fill)
-                    .padding(15)
-                    .frame(width: 75, height: 75)
-                    .onTapGesture {
-                        handleSong(id: post.songID)
-                    }
+                if (playing) {
+                    Image(systemName: "pause.circle.fill")
+                        .resizable()
+                        .aspectRatio(contentMode: .fill)
+                        .padding(15)
+                        .frame(width: 75, height: 75)
+                } else {
+                    Image(systemName: "play.circle.fill")
+                        .resizable()
+                        .aspectRatio(contentMode: .fill)
+                        .padding(15)
+                        .frame(width: 75, height: 75)
+                }
+            }
+            .onTapGesture {
+                playing.toggle()
+                handleSong(id: post.songID)
             }
             
             Text(post.name)
