@@ -8,7 +8,7 @@
 import SwiftUI
 
 /**
- `Custom AsyncImage that's cached. Prevents reloading on scroll.`
+ Custom `AsyncImage` that's cached. Prevents reloading when it scrolls off-screen.
  */
 struct CachedAsyncImage: View {
     @StateObject var imageLoader: ImageLoader
@@ -20,7 +20,11 @@ struct CachedAsyncImage: View {
     var body: some View {
         Group {
             if let image = imageLoader.image {
-                Image(uiImage: image).resizable().aspectRatio(contentMode: .fit).cornerRadius(10).padding(5)
+                Image(uiImage: image)
+                    .resizable()
+                    .aspectRatio(contentMode: .fit)
+                    .cornerRadius(10)
+                    .padding(5)
             } else if let error = imageLoader.errorMessage {
                 Text(error).foregroundColor(.pink)
             } else {

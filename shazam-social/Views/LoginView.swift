@@ -29,6 +29,7 @@ struct LoginView: View {
                 }
                 
                 Group {
+                    // Used an AsyncImage instead of my custom cached version because it never scrolls out of view.
                     AsyncImage(url: URL(string: "https://assets.stickpng.com/images/580b57fcd9996e24bc43c538.png")) { image in
                         image
                             .resizable()

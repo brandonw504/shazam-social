@@ -19,7 +19,7 @@ struct ShazamMedia: Decodable {
 }
 
 /**
- `Requests microphone permission and finds matches for the song signature.`
+ Requests microphone permission and finds matches for the song signature.
  */
 class ShazamHelper: NSObject, ObservableObject {
     @Published var shazamMedia = ShazamMedia(title: "Title...",

@@ -9,7 +9,7 @@ import Foundation
 import RealmSwift
 
 /**
- `Contains all the authentication functions.`
+ Contains all the authentication functions.
  */
 class AuthenticationManager: ObservableObject {
     static var name: String = ""

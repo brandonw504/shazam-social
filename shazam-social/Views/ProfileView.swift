@@ -9,7 +9,7 @@ import SwiftUI
 import RealmSwift
 
 /**
- `Users can see their own Shazamed songs and log out.`
+ Users can see their own Shazamed songs and also log out.
  */
 struct ProfileView: View {
     @ObservedRealmObject var user: User
@@ -17,7 +17,7 @@ struct ProfileView: View {
     var body: some View {
         VStack {
             SwiftUI.List {
-                ForEach(user.posts) { post in
+                ForEach(user.posts.reversed()) { post in
                     NavigationLink(destination: ProfilePostView(post: post)) {
                         Card(post: post)
                     }

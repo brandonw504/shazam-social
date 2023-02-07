@@ -27,6 +27,10 @@
 		5B7960AB298C76AC00947879 /* ShazamHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B7960AA298C76AC00947879 /* ShazamHelper.swift */; };
 		5B7960AD298C77BB00947879 /* AppKeys.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B7960AC298C77BB00947879 /* AppKeys.swift */; };
 		5B7960AF298C77F900947879 /* Model.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B7960AE298C77F900947879 /* Model.swift */; };
+		5BD9125B2991ABF10008B8F1 /* UndimmedPresentationDetent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BD9125A2991ABF10008B8F1 /* UndimmedPresentationDetent.swift */; };
+		5BD9125D2991AC770008B8F1 /* UndimmedDetentController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BD9125C2991AC770008B8F1 /* UndimmedDetentController.swift */; };
+		5BD9125F2991AEE50008B8F1 /* UndimmedDetentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BD9125E2991AEE50008B8F1 /* UndimmedDetentView.swift */; };
+		5BD912612991BBC60008B8F1 /* MapPostView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BD912602991BBC60008B8F1 /* MapPostView.swift */; };
 		5BFC70DD2990EB8B00E4D566 /* ProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BFC70DC2990EB8B00E4D566 /* ProfileView.swift */; };
 		5BFC70DF2990F0A600E4D566 /* ProfilePostView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BFC70DE2990F0A600E4D566 /* ProfilePostView.swift */; };
 		5BFC70E12990F57A00E4D566 /* MapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BFC70E02990F57900E4D566 /* MapView.swift */; };
@@ -58,6 +62,10 @@
 		5B7960AA298C76AC00947879 /* ShazamHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShazamHelper.swift; sourceTree = "<group>"; };
 		5B7960AC298C77BB00947879 /* AppKeys.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppKeys.swift; sourceTree = "<group>"; };
 		5B7960AE298C77F900947879 /* Model.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Model.swift; sourceTree = "<group>"; };
+		5BD9125A2991ABF10008B8F1 /* UndimmedPresentationDetent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UndimmedPresentationDetent.swift; sourceTree = "<group>"; };
+		5BD9125C2991AC770008B8F1 /* UndimmedDetentController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UndimmedDetentController.swift; sourceTree = "<group>"; };
+		5BD9125E2991AEE50008B8F1 /* UndimmedDetentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UndimmedDetentView.swift; sourceTree = "<group>"; };
+		5BD912602991BBC60008B8F1 /* MapPostView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapPostView.swift; sourceTree = "<group>"; };
 		5BFC70DC2990EB8B00E4D566 /* ProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileView.swift; sourceTree = "<group>"; };
 		5BFC70DE2990F0A600E4D566 /* ProfilePostView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfilePostView.swift; sourceTree = "<group>"; };
 		5BFC70E02990F57900E4D566 /* MapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapView.swift; sourceTree = "<group>"; };
@@ -88,6 +96,7 @@
 				5B5E7F5A298F351F00AA588C /* SignUpView.swift */,
 				5B43D32D298CAEB4006B56EA /* FeedView.swift */,
 				5BFC70E02990F57900E4D566 /* MapView.swift */,
+				5BD9125E2991AEE50008B8F1 /* UndimmedDetentView.swift */,
 				5BFC70DC2990EB8B00E4D566 /* ProfileView.swift */,
 				5B43D32F298CAED2006B56EA /* ShazamView.swift */,
 				5B43D331298CF2CE006B56EA /* NewPostView.swift */,
@@ -100,8 +109,9 @@
 		5B43D333298D0655006B56EA /* Components */ = {
 			isa = PBXGroup;
 			children = (
-				5BFC70DE2990F0A600E4D566 /* ProfilePostView.swift */,
 				5B43D334298D0662006B56EA /* PostCard.swift */,
+				5BD912602991BBC60008B8F1 /* MapPostView.swift */,
+				5BFC70DE2990F0A600E4D566 /* ProfilePostView.swift */,
 				5B793BB1298DC89D00D57757 /* DateToString.swift */,
 				5BFC70E22991074900E4D566 /* CachedAsyncImage.swift */,
 			);
@@ -114,6 +124,7 @@
 				5B5E7F58298F2E7700AA588C /* AuthenticationManager.swift */,
 				5B7960AA298C76AC00947879 /* ShazamHelper.swift */,
 				5BFC70E42991075700E4D566 /* ImageLoader.swift */,
+				5BD912622991C9F50008B8F1 /* UndimmedDetent */,
 				5B793BBD298E1D4800D57757 /* Location */,
 			);
 			path = Helpers;
@@ -177,6 +188,15 @@
 				5B7960A3298C74AB00947879 /* Preview Assets.xcassets */,
 			);
 			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		5BD912622991C9F50008B8F1 /* UndimmedDetent */ = {
+			isa = PBXGroup;
+			children = (
+				5BD9125C2991AC770008B8F1 /* UndimmedDetentController.swift */,
+				5BD9125A2991ABF10008B8F1 /* UndimmedPresentationDetent.swift */,
+			);
+			path = UndimmedDetent;
 			sourceTree = "<group>";
 		};
 		7168872709D7B85FD3FD5A56 /* Frameworks */ = {
@@ -314,9 +334,13 @@
 				5B793BBA298E1CAE00D57757 /* LocalSearchService.swift in Sources */,
 				5B5E7F5E298F36B900AA588C /* SyncContentView.swift in Sources */,
 				5B793BB2298DC89D00D57757 /* DateToString.swift in Sources */,
+				5BD9125B2991ABF10008B8F1 /* UndimmedPresentationDetent.swift in Sources */,
 				5B5E7F59298F2E7700AA588C /* AuthenticationManager.swift in Sources */,
+				5BD9125D2991AC770008B8F1 /* UndimmedDetentController.swift in Sources */,
+				5BD912612991BBC60008B8F1 /* MapPostView.swift in Sources */,
 				5B43D32E298CAEB4006B56EA /* FeedView.swift in Sources */,
 				5BFC70E32991074900E4D566 /* CachedAsyncImage.swift in Sources */,
+				5BD9125F2991AEE50008B8F1 /* UndimmedDetentView.swift in Sources */,
 				5BFC70DF2990F0A600E4D566 /* ProfilePostView.swift in Sources */,
 				5BFC70E12990F57A00E4D566 /* MapView.swift in Sources */,
 				5B5E7F60298F36E300AA588C /* OpenSyncedRealmView.swift in Sources */,

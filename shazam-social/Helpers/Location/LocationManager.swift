@@ -9,7 +9,7 @@ import Foundation
 import CoreLocation
 
 /**
- `Requests the user's location.`
+ Requests the user's location.
  */
 class LocationManager: NSObject, ObservableObject, CLLocationManagerDelegate {
     let manager = CLLocationManager()
@@ -29,6 +29,7 @@ class LocationManager: NSObject, ObservableObject, CLLocationManagerDelegate {
          print("error: \(error.localizedDescription)")
     }
 
+    // Runs if authorization status changes.
     func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
         if status == .authorizedWhenInUse || status == .authorizedAlways {
             self.manager.startUpdatingLocation()

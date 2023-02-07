@@ -6,9 +6,10 @@
 //
 
 import SwiftUI
+import CoreLocation
 
 /**
- `Users can search for a location.`
+ Users can search for a location.
  */
 struct LocationView: View {
     @Environment(\.presentationMode) var presentationMode
@@ -24,25 +25,23 @@ struct LocationView: View {
         VStack {
             Divider()
             HStack {
-                /*
-                 I believe the error "Publishing changes from within view updates is not allowed, this will cause undefined behavior." comes from here.
-                 The location search throws a purple error (memory leak) because it updates an @Published variable, which then affects a List.
-                 This article suggested a LazyVStack or a ScrollView instead of a VStack to fix it, but they don't provide the behavior I'm looking for.
-                 https://www.donnywals.com/xcode-14-publishing-changes-from-within-view-updates-is-not-allowed-this-will-cause-undefined-behavior/
-                 My implementation doesn't seem to do anything absolutely wrong, so I decided to ignore the warning.
-                 */
-                TextField("Search for a location", text: $localSearchViewData.locationText).focused($locationIsFocused).onTapGesture {
-                    showingSearchResults = true
-                    locationManager.requestLocation()
-                    if let loc = locationManager.location {
-                        localSearchViewData.currentLocation = loc
+                // Link the text field to the local search's locationText so we can perform a search when new characters are typed.
+                TextField("Search for a location", text: $localSearchViewData.locationText)
+                    .focused($locationIsFocused)
+                    .onTapGesture {
+                        showingSearchResults = true
+                        locationManager.requestLocation()
+                        if let loc = locationManager.location {
+                            localSearchViewData.currentLocation = loc
                     }
                 }
                 
                 Button(action: {
                     localSearchViewData.locationText = ""
                 }) {
-                    Image(systemName: "multiply.circle.fill").foregroundColor(.gray).font(.system(size: 20))
+                    Image(systemName: "multiply.circle.fill")
+                        .foregroundColor(.gray)
+                        .font(.system(size: 20))
                 }
             }.padding(3)
             Divider()

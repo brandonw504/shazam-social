@@ -11,7 +11,7 @@ import MediaPlayer
 import CoreLocation
 
 /**
- `The homepage, where users can see each others' posts and play the songs.`
+ The homepage, where users can see each others' posts and play the songs.
  */
 struct FeedView: View {
     @ObservedRealmObject var user: User
@@ -23,7 +23,6 @@ struct FeedView: View {
     @State private var showingMap = false
     @State private var showingAlert = false
     @State var posts = [Post]()
-    @State private var currentCoordinates = CLLocationCoordinate2D()
     
     // MARK: - Database
     // In the future, I will switch to using protocols in a database manager.
@@ -84,6 +83,7 @@ struct FeedView: View {
     }
     
     // Play the tapped song. If it's already playing, pause it.
+    // If it's a different song, stop the current one and play the new one.
     func handleSong(id: String) {
         switch musicPlayer.playbackState {
         case .playing:
@@ -112,22 +112,6 @@ struct FeedView: View {
                         .onTapGesture {
                             handleSong(id: post.songID)
                         }
-                        .contextMenu {
-                            if let latitude = post.latitude {
-                                if let longitude = post.longitude {
-                                    Button(action: {
-                                        let lat = CLLocationDegrees(latitude)
-                                        let long = CLLocationDegrees(longitude)
-                                        currentCoordinates = CLLocationCoordinate2D(latitude: lat, longitude: long)
-                                        showingMap = true
-                                        stopSong()
-                                        posts.removeAll()
-                                    }) {
-                                        Label("View Map", systemImage: "mappin.and.ellipse")
-                                    }
-                                }
-                            }
-                        }
                     }
                 }
                 .refreshable {
@@ -144,7 +128,6 @@ struct FeedView: View {
                     Button(action: {
                         stopSong()
                         showingProfile = true
-                        posts.removeAll()
                     }) {
                         Image(systemName: "person.circle")
                     }
@@ -154,25 +137,32 @@ struct FeedView: View {
                     Button(action: {
                         stopSong()
                         showingShazam = true
-                        posts.removeAll()
                     }) {
                         Image(systemName: "plus")
                     }
                 }
+                
+                ToolbarItem(placement: .bottomBar) {
+                    Button(action: {
+                        stopSong()
+                        showingMap = true
+                    }) {
+                        HStack {
+                            Text("View Map")
+                            Image(systemName: "mappin.and.ellipse")
+                        }
+                    }
+                }
             }
-            .navigationDestination(isPresented: $showingProfile) {
-                ProfileView(user: user)
-            }
-            .navigationDestination(isPresented: $showingShazam) {
-                ShazamView(user: user)
-            }
-            .navigationDestination(isPresented: $showingMap) {
-                MapView(coordinates: currentCoordinates)
-            }
+            .navigationDestination(isPresented: $showingProfile) { ProfileView(user: user) }
+            .navigationDestination(isPresented: $showingShazam) { ShazamView(user: user) }
+            .navigationDestination(isPresented: $showingMap) { MapView(posts: $posts, currentPost: posts.first) }
             .alert(isPresented: $showingAlert) {
                 Alert(title: Text("Error"), message: Text("You can't delete someone else's post."), dismissButton: .default(Text("OK")))
             }
             .onAppear {
+                // If we revisit the feed, reload it to fetch any new posts.
+                posts.removeAll()
                 getPosts()
             }
         }

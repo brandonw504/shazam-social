@@ -8,7 +8,7 @@
 import Foundation
 
 /**
- `Converts the difference between two Dates into a custom string.`
+ Converts the difference between two Dates into a custom string.
  */
 extension Date {
     // Amount of years from another date.

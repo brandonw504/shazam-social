@@ -1,5 +1,5 @@
 //
-//  ProfilePostView.swift
+//  MapPostView.swift
 //  shazam-social
 //
 //  Created by Brandon Wong on 2/6/23.
@@ -11,7 +11,7 @@ import MediaPlayer
 /**
  Detail view for a Shazamed song.
  */
-struct ProfilePostView: View {
+struct MapPostView: View {
     var post: Post
     
     @State private var musicPlayer = MPMusicPlayerController.applicationMusicPlayer
@@ -60,14 +60,18 @@ struct ProfilePostView: View {
     
     var body: some View {
         VStack(alignment: .leading) {
-            Text(post.artist)
+            Text(post.title)
                 .font(.headline)
+                .padding(3)
+            Text(post.artist)
+                .font(.subheadline)
                 .padding(3)
                 .foregroundColor(.gray)
             
             Divider()
             
-            CachedAsyncImage(url: post.albumArtURL).onTapGesture {
+            CachedAsyncImage(url: post.albumArtURL)
+                .onTapGesture {
                 handleSong(id: post.songID)
             }
             
@@ -93,7 +97,6 @@ struct ProfilePostView: View {
             Spacer()
         }
         .padding()
-        .navigationTitle(post.title)
         .onDisappear {
             stopSong()
         }

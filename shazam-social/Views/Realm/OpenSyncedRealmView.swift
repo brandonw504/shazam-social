@@ -9,10 +9,10 @@ import SwiftUI
 import RealmSwift
 
 /**
- `Opens a synced realm and creates a user if needed.`
+ Opens a synced realm and creates a user if needed.
  */
 struct OpenSyncedRealmView: View {
-    // Try to open a realm, if there's no connection then use a previously opened realm.
+    // Try to open a realm, if there's no connection then run offline and use a previously opened realm.
     @AutoOpen(appId: realmKey, partitionValue: "", timeout: 4000) var realmOpen
     
     var body: some View {

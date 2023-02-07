@@ -8,11 +8,12 @@
 import SwiftUI
 
 /**
- `Displays a post tile.`
+ Displays a post tile for the feed page.
  */
 struct PostCard: View {
     var post: Post
     
+    // Provides a custom description for how long ago a post was created.
     var timeSincePost: String {
         let now = Date()
         let time = now.offset(from: post.createdAt ?? Date())
@@ -24,28 +25,43 @@ struct PostCard: View {
             ZStack {
                 VStack {
                     HStack {
-                        Text(timeSincePost).padding(3).font(.system(size: 12)).foregroundColor(.gray)
+                        Text(timeSincePost)
+                            .padding(3)
+                            .font(.system(size: 12))
+                            .foregroundColor(.gray)
                         Spacer()
-                        Text(post.location ?? "").padding(3).font(.system(size: 12)).foregroundColor(.gray)
+                        Text(post.location ?? "")
+                            .padding(3)
+                            .font(.system(size: 12))
+                            .foregroundColor(.gray)
                     }
                     
                     Divider()
                     
                     HStack {
-                        Text(post.title).font(.title).padding(3)
+                        Text(post.title)
+                            .font(.title)
+                            .padding(3)
                         Spacer()
-                        Text(post.artist).font(.headline).padding(3).foregroundColor(.gray)
+                        Text(post.artist)
+                            .font(.headline)
+                            .padding(3)
+                            .foregroundColor(.gray)
                     }
                     
                     CachedAsyncImage(url: post.albumArtURL)
                     
                     HStack {
-                        Text(post.name).font(.headline).padding(3)
+                        Text(post.name)
+                            .font(.headline)
+                            .padding(3)
                         Spacer()
                     }
                     
                     HStack {
-                        Text(post.caption).font(.caption).padding(3)
+                        Text(post.caption)
+                            .font(.caption)
+                            .padding(3)
                         Spacer()
                     }
                 }

@@ -9,7 +9,7 @@ import SwiftUI
 import RealmSwift
 
 /**
- `Users can add a caption and location to their post.`
+ Users can add a caption and location to their post.
  */
 struct NewPostView: View {
     @ObservedRealmObject var user: User
@@ -58,6 +58,7 @@ struct NewPostView: View {
     var body: some View {
         VStack(alignment: .center) {
             Spacer()
+            // Used an AsyncImage instead of my custom cached version because it never scrolls out of view.
             AsyncImage(url: albumArtURL) { image in
                 image
                     .resizable()
@@ -113,7 +114,7 @@ struct NewPostView: View {
             }
             .buttonStyle(.borderedProminent)
             .alert(isPresented: $showingAlert) {
-                Alert(title: Text("Error"), message: Text("Caption cannot be empty"), dismissButton: .default(Text("OK")))
+                Alert(title: Text("Error"), message: Text("Please add a caption."), dismissButton: .default(Text("OK")))
             }
             Spacer()
         }

@@ -9,7 +9,7 @@ import SwiftUI
 import RealmSwift
 
 /**
- `Users can Shazam a song here.`
+ Users can Shazam a song here.
  */
 struct ShazamView: View {
     @ObservedRealmObject var user: User
@@ -24,6 +24,7 @@ struct ShazamView: View {
     
     var body: some View {
         ZStack {
+            // Used an AsyncImage instead of my custom cached version because it never scrolls out of view.
             AsyncImage(url: URL(string: background)) { image in
                 image
                     .resizable()
@@ -37,6 +38,7 @@ struct ShazamView: View {
             
             VStack(alignment: .center) {
                 Spacer()
+                // Used an AsyncImage instead of my custom cached version because it never scrolls out of view.
                 AsyncImage(url: URL(string: "https://assets.stickpng.com/images/580b57fcd9996e24bc43c538.png")) { image in
                     image
                         .resizable()

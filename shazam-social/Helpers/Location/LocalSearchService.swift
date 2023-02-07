@@ -10,7 +10,7 @@ import Combine
 import MapKit
 
 /**
- `Performs an MKLocalSearch to find points of interest around the user's current location.`
+ Performs an MKLocalSearch to find points of interest around the user's current location.
  */
 final class LocalSearchService {
     let localSearchPublisher = PassthroughSubject<[MKMapItem], Never>()

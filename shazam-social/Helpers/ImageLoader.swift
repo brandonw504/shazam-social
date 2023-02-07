@@ -9,7 +9,7 @@ import Foundation
 import UIKit
 
 /**
- `Loads and caches a UIImage from a URL.`
+ Loads and caches a `UIImage` from a URL.
  */
 class ImageLoader: ObservableObject {
     let url: String?
@@ -33,8 +33,8 @@ class ImageLoader: ObservableObject {
         isLoading = true
         errorMessage = nil
         
+        // Load the image from the URL passed in.
         let request = URLRequest(url: fetchURL, cachePolicy: .returnCacheDataElseLoad)
-        
         let task = URLSession.shared.dataTask(with: request) { [weak self] (data, response, error) in
             DispatchQueue.main.async {
                 self?.isLoading = false

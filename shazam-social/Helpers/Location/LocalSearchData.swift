@@ -21,16 +21,16 @@ struct LocalSearchData: Identifiable {
 }
 
 /**
- `Abstracts the location search away from the view`
+ Middle layer that connects a view to the LocalSearchService.
  */
 final class LocalSearchViewData: ObservableObject {
     private var cancellable: AnyCancellable?
 
     // Updates whenever it changes (user types in search bar) and performs a search for points of interest.
-    // Only start searching when the user has typed in 4+ characters so you don't run a lot of searches on very broad search terms.
+    // Only start searching when the user has typed in 5+ characters so you don't run a lot of searches on very broad search terms.
     @Published var locationText = "" {
         didSet {
-            if (locationText.count > 3) {
+            if (locationText.count > 4) {
                 search(text: locationText)
             }
         }

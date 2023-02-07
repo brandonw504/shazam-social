@@ -9,7 +9,7 @@ import SwiftUI
 import RealmSwift
 
 /**
- `Directs the user to the login page or opens a realm with a logged in user.`
+ Directs the user to the login page or opens a realm with a logged in user.
  */
 struct SyncContentView: View {
     // React to login state changes in the Realm app object.
