@@ -15,6 +15,7 @@ struct SignUpView: View {
     @State private var name = ""
     @State private var isLoggingIn = false
     @State private var scale = false
+    @FocusState private var keyboardIsFocused: Bool
     
     var body: some View {
         VStack(alignment: .center) {
@@ -53,18 +54,21 @@ struct SignUpView: View {
                     .textFieldStyle(RoundedBorderTextFieldStyle())
                     .disableAutocorrection(true)
                     .textInputAutocapitalization(.never)
+                    .focused($keyboardIsFocused)
                 
                 TextField("Email", text: $authManager.email)
                     .padding(.horizontal)
                     .textFieldStyle(RoundedBorderTextFieldStyle())
                     .disableAutocorrection(true)
                     .textInputAutocapitalization(.never)
+                    .focused($keyboardIsFocused)
                 
                 SecureField("Password", text: $authManager.password)
                     .padding(.horizontal)
                     .textFieldStyle(RoundedBorderTextFieldStyle())
                     .disableAutocorrection(true)
                     .textInputAutocapitalization(.never)
+                    .focused($keyboardIsFocused)
             }
             
             if authManager.isLoading {
@@ -89,6 +93,17 @@ struct SignUpView: View {
                     presentationMode.wrappedValue.dismiss()
                 }
                 .disabled(authManager.isLoading)
+            }
+        }
+        .toolbar {
+            ToolbarItem(placement: .keyboard) {
+                Spacer()
+            }
+            
+            ToolbarItem(placement: .keyboard) {
+                Button("Done") {
+                    keyboardIsFocused = false
+                }
             }
         }
     }

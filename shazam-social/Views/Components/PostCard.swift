@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import MediaPlayer
 
 /**
  Displays a post tile for the feed page.
@@ -13,11 +14,50 @@ import SwiftUI
 struct PostCard: View {
     var post: Post
     
+    @State private var musicPlayer = MPMusicPlayerController.applicationMusicPlayer
+    @State private var playing = false
+    
     // Provides a custom description for how long ago a post was created.
     var timeSincePost: String {
         let now = Date()
         let time = now.offset(from: post.createdAt ?? Date())
         return time == "" ? "Just now" : time
+    }
+    
+    // MARK: - Music Player
+    func playSong(id: String) {
+        musicPlayer.setQueue(with: [id])
+        musicPlayer.prepareToPlay()
+        musicPlayer.play()
+    }
+    
+    func stopSong() {
+        switch musicPlayer.playbackState {
+        case .playing:
+            musicPlayer.stop()
+        default:
+            return
+        }
+    }
+    
+    // Play the tapped song. If it's already playing, pause it.
+    // If it's a different song, stop the current one and play the new one.
+    func handleSong(id: String) {
+        switch musicPlayer.playbackState {
+        case .playing:
+            if (musicPlayer.nowPlayingItem?.playbackStoreID == id) {
+                musicPlayer.pause()
+            } else {
+                musicPlayer.stop()
+                playSong(id: id)
+            }
+        default:
+            if (musicPlayer.nowPlayingItem?.playbackStoreID == id) {
+                musicPlayer.play()
+            } else {
+                playSong(id: id)
+            }
+        }
     }
     
     var body: some View {
@@ -48,8 +88,19 @@ struct PostCard: View {
                         .foregroundColor(.gray)
                 }
                 
-                // Custom AsyncImage that's cached. Prevents reloading when it scrolls off-screen.
-                CachedAsyncImage(url: post.albumArtURL)
+                ZStack(alignment: .bottomLeading) {
+                    // Custom AsyncImage that's cached. Prevents reloading when it scrolls off-screen.
+                    CachedAsyncImage(url: post.albumArtURL)
+
+                    Image(systemName: "play.circle.fill")
+                        .resizable()
+                        .aspectRatio(contentMode: .fill)
+                        .padding(15)
+                        .frame(width: 75, height: 75)
+                        .onTapGesture {
+                            handleSong(id: post.songID)
+                        }
+                }
                 
                 HStack {
                     Text(post.name)
@@ -65,6 +116,9 @@ struct PostCard: View {
                     Spacer()
                 }
             }
+        }
+        .onDisappear {
+            stopSong()
         }
     }
 }

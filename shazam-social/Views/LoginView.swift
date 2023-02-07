@@ -16,6 +16,7 @@ struct LoginView: View {
     @State private var isLoggingIn = false
     @State private var showingAlert = false
     @State private var scale = false
+    @FocusState private var keyboardIsFocused: Bool
     
     var body: some View {
         NavigationStack {
@@ -55,12 +56,14 @@ struct LoginView: View {
                         .textFieldStyle(RoundedBorderTextFieldStyle())
                         .disableAutocorrection(true)
                         .textInputAutocapitalization(.never)
+                        .focused($keyboardIsFocused)
                     
                     SecureField("Password", text: $authManager.password)
                         .padding(.horizontal)
                         .textFieldStyle(RoundedBorderTextFieldStyle())
                         .disableAutocorrection(true)
                         .textInputAutocapitalization(.never)
+                        .focused($keyboardIsFocused)
                 }
                 
                 if authManager.isLoading {
@@ -89,6 +92,17 @@ struct LoginView: View {
             }
             .navigationDestination(isPresented: $showingSignUp) {
                 SignUpView()
+            }
+            .toolbar {
+                ToolbarItem(placement: .keyboard) {
+                    Spacer()
+                }
+                
+                ToolbarItem(placement: .keyboard) {
+                    Button("Done") {
+                        keyboardIsFocused = false
+                    }
+                }
             }
         }
     }

@@ -16,13 +16,17 @@ struct ProfileView: View {
     
     var body: some View {
         VStack {
-            SwiftUI.List {
-                ForEach(user.posts.reversed()) { post in
-                    NavigationLink(destination: ProfilePostView(post: post)) {
-                        Card(post: post)
+            if (user.posts.isEmpty) {
+                Label("No posts yet!", systemImage: "exclamationmark.triangle.fill").font(.title)
+            } else {
+                SwiftUI.List {
+                    ForEach(user.posts.reversed()) { post in
+                        NavigationLink(destination: ProfilePostView(post: post)) {
+                            Card(post: post)
+                        }
                     }
+                    .onDelete(perform: $user.posts.remove)
                 }
-                .onDelete(perform: $user.posts.remove)
             }
         }
         .navigationTitle(user.name)

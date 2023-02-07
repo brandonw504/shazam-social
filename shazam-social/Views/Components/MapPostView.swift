@@ -70,14 +70,25 @@ struct MapPostView: View {
             
             Divider()
             
-            AsyncImage(url: URL(string: post.albumArtURL)) { image in
-                image
+            ZStack(alignment: .bottomLeading) {
+                AsyncImage(url: URL(string: post.albumArtURL)) { image in
+                    image
+                        .resizable()
+                        .aspectRatio(contentMode: .fit)
+                        .cornerRadius(10)
+                        .padding(5)
+                } placeholder: {
+                    ProgressView()
+                }
+
+                Image(systemName: "play.circle.fill")
                     .resizable()
-                    .aspectRatio(contentMode: .fit)
-                    .cornerRadius(10)
-                    .padding(5)
-            } placeholder: {
-                ProgressView()
+                    .aspectRatio(contentMode: .fill)
+                    .padding(15)
+                    .frame(width: 75, height: 75)
+                    .onTapGesture {
+                        handleSong(id: post.songID)
+                    }
             }
             
             Text(post.name)

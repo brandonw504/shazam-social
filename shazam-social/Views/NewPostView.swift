@@ -28,6 +28,7 @@ struct NewPostView: View {
     @State private var location = ""
     @State private var showingAlert = false
     @State private var showingLocationPicker = false
+    @FocusState private var keyboardIsFocused: Bool
         
     func addPost() {
         guard let songTitle = self.title else {
@@ -84,6 +85,7 @@ struct NewPostView: View {
             TextField("Caption", text: $caption)
                 .padding(.horizontal)
                 .textFieldStyle(RoundedBorderTextFieldStyle())
+                .focused($keyboardIsFocused)
             
             HStack {
                 Text(location).foregroundColor(.gray)
@@ -120,6 +122,17 @@ struct NewPostView: View {
         }
         .navigationDestination(isPresented: $showingLocationPicker) {
             LocationView(location: $location)
+        }
+        .toolbar {
+            ToolbarItem(placement: .keyboard) {
+                Spacer()
+            }
+            
+            ToolbarItem(placement: .keyboard) {
+                Button("Done") {
+                    keyboardIsFocused = false
+                }
+            }
         }
     }
 }

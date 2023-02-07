@@ -32,8 +32,10 @@ struct MapView: View {
         Map(coordinateRegion: $region, showsUserLocation: false, annotationItems: posts) { post in
             MapAnnotation(coordinate: CLLocationCoordinate2D(latitude: post.latitude!, longitude: post.longitude!)) {
                 Image(systemName: "mappin")
+                    .resizable()
+                    .aspectRatio(contentMode: .fill)
                     .foregroundColor(.red)
-                    .frame(width: 30, height: 30)
+                    .frame(width: 20, height: 20)
                     .onTapGesture {
                         // Ensure that the tapped post is assigned before showing the sheet.
                         DispatchQueue.main.async {

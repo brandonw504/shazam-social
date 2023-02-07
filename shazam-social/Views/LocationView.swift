@@ -19,7 +19,7 @@ struct LocationView: View {
     @Binding var location: String
     
     @State private var showingSearchResults = false
-    @FocusState private var locationIsFocused: Bool
+    @FocusState private var keyboardIsFocused: Bool
     
     var body: some View {
         VStack {
@@ -27,7 +27,7 @@ struct LocationView: View {
             HStack {
                 // Link the text field to the local search's locationText so we can perform a search when new characters are typed.
                 TextField("Search for a location", text: $localSearchViewData.locationText)
-                    .focused($locationIsFocused)
+                    .focused($keyboardIsFocused)
                     .onTapGesture {
                         showingSearchResults = true
                         locationManager.requestLocation()
@@ -55,7 +55,7 @@ struct LocationView: View {
                         localSearchViewData.locationText = place.title
                         location = place.title
                         showingSearchResults = false
-                        locationIsFocused = false
+                        keyboardIsFocused = false
                         presentationMode.wrappedValue.dismiss()
                     }
                 }
@@ -64,5 +64,16 @@ struct LocationView: View {
             }
         }
         .navigationTitle("Location Search")
+        .toolbar {
+            ToolbarItem(placement: .keyboard) {
+                Spacer()
+            }
+            
+            ToolbarItem(placement: .keyboard) {
+                Button("Done") {
+                    keyboardIsFocused = false
+                }
+            }
+        }
     }
 }

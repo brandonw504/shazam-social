@@ -7,7 +7,6 @@
 
 import SwiftUI
 import RealmSwift
-import MediaPlayer
 import CoreLocation
 
 /**
@@ -17,7 +16,6 @@ struct FeedView: View {
     @ObservedRealmObject var user: User
     @Environment(\.presentationMode) var presentationMode
     
-    @State private var musicPlayer = MPMusicPlayerController.applicationMusicPlayer
     @State private var showingProfile = false
     @State private var showingShazam = false
     @State private var showingMap = false
@@ -66,42 +64,6 @@ struct FeedView: View {
         }
     }
     
-    // MARK: - Music Player
-    func playSong(id: String) {
-        musicPlayer.setQueue(with: [id])
-        musicPlayer.prepareToPlay()
-        musicPlayer.play()
-    }
-    
-    func stopSong() {
-        switch musicPlayer.playbackState {
-        case .playing:
-            musicPlayer.stop()
-        default:
-            return
-        }
-    }
-    
-    // Play the tapped song. If it's already playing, pause it.
-    // If it's a different song, stop the current one and play the new one.
-    func handleSong(id: String) {
-        switch musicPlayer.playbackState {
-        case .playing:
-            if (musicPlayer.nowPlayingItem?.playbackStoreID == id) {
-                musicPlayer.pause()
-            } else {
-                musicPlayer.stop()
-                playSong(id: id)
-            }
-        default:
-            if (musicPlayer.nowPlayingItem?.playbackStoreID == id) {
-                musicPlayer.play()
-            } else {
-                playSong(id: id)
-            }
-        }
-    }
-    
     var body: some View {
         NavigationStack {
             VStack(spacing: 25) {
@@ -109,9 +71,6 @@ struct FeedView: View {
                     ForEach(posts.reversed()) { post in
                         PostCard(post: post)
                         .id(post.id)
-                        .onTapGesture {
-                            handleSong(id: post.songID)
-                        }
                     }
                 }
                 .refreshable {
@@ -126,7 +85,6 @@ struct FeedView: View {
             .toolbar {
                 ToolbarItem(placement: .navigationBarLeading) {
                     Button(action: {
-                        stopSong()
                         showingProfile = true
                     }) {
                         Image(systemName: "person.circle")
@@ -135,23 +93,25 @@ struct FeedView: View {
                 
                 ToolbarItem(placement: .navigationBarTrailing) {
                     Button(action: {
-                        stopSong()
                         showingShazam = true
                     }) {
-                        Image(systemName: "plus")
+                        Text("New Post")
                     }
                 }
                 
                 ToolbarItem(placement: .bottomBar) {
                     Button(action: {
-                        stopSong()
                         showingMap = true
                     }) {
                         HStack {
-                            Text("View Map")
+                            Text("Map View")
                             Image(systemName: "mappin.and.ellipse")
                         }
                     }
+                }
+                
+                ToolbarItem(placement: .bottomBar) {
+                    Spacer()
                 }
             }
             .navigationDestination(isPresented: $showingProfile) { ProfileView(user: user) }
