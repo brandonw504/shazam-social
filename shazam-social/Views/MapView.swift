@@ -16,7 +16,7 @@ import MapKit
 struct MapView: View {
     @StateObject var locationManager = LocationManager()
     @Binding var posts: [Post]
-    @State var currentPost: Post?
+    @State var currentPost = Post()
     
     @State private var region = MKCoordinateRegion()
     @State private var showingSheet = false
@@ -46,7 +46,7 @@ struct MapView: View {
         .edgesIgnoringSafeArea(.all)
         // Open a detail view for the song at the marker you tapped on.
         .sheet(isPresented: $showingSheet) {
-            MapPostView(post: currentPost!)
+            MapPostView(post: $currentPost)
                 // Custom presentation detent allows the parent view (the map) to still be interacted with.
                 .presentationDetents(undimmed: [.medium])
                 .presentationDragIndicator(.visible)

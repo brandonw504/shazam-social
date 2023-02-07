@@ -156,7 +156,7 @@ struct FeedView: View {
             }
             .navigationDestination(isPresented: $showingProfile) { ProfileView(user: user) }
             .navigationDestination(isPresented: $showingShazam) { ShazamView(user: user) }
-            .navigationDestination(isPresented: $showingMap) { MapView(posts: $posts, currentPost: posts.first) }
+            .navigationDestination(isPresented: $showingMap) { MapView(posts: $posts) }
             .alert(isPresented: $showingAlert) {
                 Alert(title: Text("Error"), message: Text("You can't delete someone else's post."), dismissButton: .default(Text("OK")))
             }

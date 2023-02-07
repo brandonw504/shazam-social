@@ -12,7 +12,7 @@ import MediaPlayer
  Detail view for a Shazamed song.
  */
 struct MapPostView: View {
-    var post: Post
+    @Binding var post: Post
     
     @State private var musicPlayer = MPMusicPlayerController.applicationMusicPlayer
     
@@ -70,9 +70,14 @@ struct MapPostView: View {
             
             Divider()
             
-            CachedAsyncImage(url: post.albumArtURL)
-                .onTapGesture {
-                handleSong(id: post.songID)
+            AsyncImage(url: URL(string: post.albumArtURL)) { image in
+                image
+                    .resizable()
+                    .aspectRatio(contentMode: .fit)
+                    .cornerRadius(10)
+                    .padding(5)
+            } placeholder: {
+                ProgressView()
             }
             
             Text(post.name)

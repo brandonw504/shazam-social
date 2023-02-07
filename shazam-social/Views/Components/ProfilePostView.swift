@@ -67,6 +67,7 @@ struct ProfilePostView: View {
             
             Divider()
             
+            // Custom AsyncImage that's cached. Prevents reloading when it scrolls off-screen.
             CachedAsyncImage(url: post.albumArtURL).onTapGesture {
                 handleSong(id: post.songID)
             }
