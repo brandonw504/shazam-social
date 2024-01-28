@@ -7,10 +7,7 @@ An iOS social media app in which users can use Shazam to find songs playing in t
 This app requires an Apple Developer account to use ShazamKit and an Apple Music subscription if you'd like to play music from the posts. Clone the repository, navigate to the directory shazam-social in the Terminal, and run pod install. Then, open shazam-social.xcworkspace. Plug in an Apple device to your computer and pick that device from the list of simulators to run on. You may need to trust Developer apps to run in Settings. Run the app from Xcode. Run the app once, and then you can enable ShazamKit by selecting the app named \[your name\].shazam-social and checking the box for ShazamKit. You're all done! Run the app again to start using it.
 
 ## Using the App
-Sign up for an account, or sign in with these credentials.\
-Email: welcomeshazam@apple.com\
-Password: Shazam!\
-You won't be prompted for a name when logging in, but it's set to Shazam Team with this login.\
+Sign up for an account.\
 <img src="https://user-images.githubusercontent.com/71607013/217356404-0b8cf75f-83d4-4a86-9071-93dd5c75569a.MP4" height="1000">
 
 On the home view, you'll be able to see posts by other users who Shazamed songs. At the bottom, you can choose to view the posts in a map format, where you can tap on a marker and see information about the song the user Shazamed.\
